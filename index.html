@@ -1,4 +1,9 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
 <script>(function(){if(!document.querySelector('meta[name="viewport"]')){var m=document.createElement('meta');m.name='viewport';m.content='width=device-width, initial-scale=1, viewport-fit=cover';(document.head||document.documentElement).appendChild(m);}})();</script>
 <title>Carnet Boutique</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -51,6 +56,7 @@ h3{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute
 .stat .v{font-family:var(--display);font-weight:800;font-size:22px;margin-top:2px;overflow-wrap:anywhere}
 .stat.debt .v{color:var(--debt)} .stat.cash .v{color:var(--accent)} .stat.bad .v{color:var(--danger)}
 .stat.wide{grid-column:1/-1}
+.lw{color:var(--danger)!important;font-weight:700!important}.lw:empty{display:none}
 #printArea{display:none}
 #pdfArea.tick{width:420px;padding:22px 20px;white-space:pre-wrap;font:15px/1.5 ui-monospace,Menlo,Consolas,monospace}
 .prev{max-height:58vh;overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff;padding:6px}.prev img{display:block;width:100%;height:auto}
@@ -168,6 +174,15 @@ html.big body{zoom:1.15}
 @media (max-width:360px){.grid3{grid-template-columns:1fr 1fr}}
 @media (prefers-reduced-motion:no-preference){.sheet{animation:up .18s ease-out}@keyframes up{from{transform:translateY(30px);opacity:.6}}}
 </style>
+<style>
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+[hidden]{display:none!important}
+img{max-width:100%}
+</style>
+</head>
+<body>
 
 <div id="app"></div>
 <div id="sheetRoot"></div>
@@ -272,7 +287,7 @@ const WO={"Préparation du PDF…":"PDF bi mu ngi waaj…","PDF prêt":"PDF bi p
 "C'est fait":"Def naa ko","jamais":"mësul","Vente rapide":"Jaay bu gaaw","Bouton de vente rapide":"Bouton jaay bu gaaw","Pièces dans un paquet / carton":"Ñaata pis ci benn paket / kartoŋ",
 "Pour les bonbons, biscuits, savons… vendus à la pièce : mettez les prix et le stock à la pièce, et ici combien il y en a dans un paquet.":"Ngir bombo, biskit, saabu… yu ñuy jaay benn-benn : dugal njëg ak stock ci benn pis, te fii ñaata pis ñoo nekk ci benn paket.",
 "Ou paquets / cartons":"Walla paket / kartoŋ","Prix d'un paquet (F)":"Njëgu benn paket (F)","Mettez d'abord le nombre de pièces par paquet dans Stock":"Jëkkal dugal ñaata pis ci benn paket ci Stock",
-"+ Stock : marchandise arrivée":"+ Stock : marsandiis bu agsi","Arrivage · scanner":"Marsandiis bu agsi · scanner","Mode rapide : +1 à chaque scan":"Mode bu gaaw : +1 bépp scan","Terminer":"Jeexal","Stock actuel":"Stock bi léegi","Quantité arrivée":"Lim bi agsi","Ajouter et scanner le suivant":"Yokk te scanner bi ci topp","Arrivage terminé":"Marsandiis yi agsi : jeex na","Résultat":"Li mu jur","Détail":"Detaay","Scannez chaque article arrivé, un après l'autre.":"Scanner bépp marsandiis bu agsi, benn-benn.","Article créé":"Def nañu marsandiis bi","📷 Prendre une photo du produit":"📷 Fotoal marsandiis bi","Changer la photo":"Soppi foto bi","Enlever":"Far","La photo aide à reconnaître l'article dans le stock et à la vente.":"Foto bi dina dimbali ngir xàmmee marsandiis bi ci stock ak ci jaay.","Recherche du produit sur internet…":"Mangi seet marsandiis bi ci internet…","Produit pas trouvé sur internet : écrivez le nom.":"Gisuñu ko ci internet : bindal tur bi.","Trouvé sur internet : vérifiez le nom et le prix.":"Gis nañu ko ci internet : seetal tur bi ak njëg gi.","Produit trouvé sans nom : écrivez-le.":"Gis nañu ko te amul tur : bindal ko.","Photo illisible, réessayez":"Foto bi baaxul, jéemaatal","Nom du produit":"Turu marsandiis bi","(s'il y en a)":"(su amee)","Appuyez sur Scan":"Bësal Scan","Prix de vente (F)":"Njëgu jaay (F)","Combien vous en avez ?":"Ñaata nga am ?","Vous l'achetez comment ?":"Naka ngay jënde ?","À la pièce":"Benn-benn","Au carton / paquet":"Ci kartoŋ / paket","Prix d'achat de 1 pièce (F)":"Njëgu jënd benn pis (F)","(pour voir le bénéfice)":"(ngir gis bénéfice bi)","Pièces dans 1 carton":"Ñaata pis ci benn kartoŋ","Prix de 1 carton (F)":"Njëgu benn kartoŋ (F)","Plus de détails (pas obligatoire)":"Yeneen leeral (du dole)","Vendu par":"Ñu ngi koy jaay ci","pour revendeurs":"ngir jaaykat yi","M'avertir s'il reste moins de":"Xamal ma su desee lu yées","Mettre un bouton dans « Vente rapide »":"Def bouton ci « Jaay bu gaaw »","Marchandise arrivée":"Marsandiis bu agsi","Pièces reçues":"Pis yi agsi","Le client donne (F)":"Li kiliyaan bi jox (F)","Crédit ou client connu":"Bor walla kiliyaan bu ñu xam","Le client paie plus tard (crédit)":"Kiliyaan bi dina fey ginnaaw (bor)","Obligatoire si crédit":"War na su dee bor","Il paiera le":"Dina fey ci","Encaisser":"Jot xaalis bi","Le reste ira en crédit : ouvrez « Crédit ou client connu » et écrivez son nom.":"Li des dina dem ci bor : ubbil « Bor walla kiliyaan bu ñu xam » te bind turam.","🖨 Imprimer":"🖨 Imprime","Imprimante Bluetooth (Android)":"Imprimante Bluetooth (Android)","Clôture de caisse":"Tëj kees bi","Clôture de caisse (envoyer / imprimer)":"Tëj kees bi (yónnee / imprime)","Argent compté dans la caisse (F)":"Xaalis bi nga waññ ci kees bi (F)","Comptez les espèces et écrivez ici":"Waññil cash bi te bind ko fii","Envoyer sur mon WhatsApp":"Yónnee ko ci sama WhatsApp","🖨 Imprimer / PDF":"🖨 Imprime / PDF","Copier":"Copier","Imprimé":"Imprime na","📄 Rapport complet en PDF (ventes, stock, crédits…)":"📄 Rapport bu mat ci PDF (jaay, stock, bor…)","Bénéfice, clôture, rapport PDF":"Bénéfice, tëj kees, rapport PDF","Divers":"Yeneen","Billets":"Kayitu xaalis","Pièces":"Weñ","Articles qui ne bougent pas":"Marsandiis yu dul jaayu","Pas vendus depuis 30 jours : baissez le prix ou n'en rachetez pas.":"Jaayuñu leen ba 30 fan : wàññil njëg gi walla bul ci jëndaat."
+"+ Stock : marchandise arrivée":"+ Stock : marsandiis bu agsi","Arrivage · scanner":"Marsandiis bu agsi · scanner","Mode rapide : +1 à chaque scan":"Mode bu gaaw : +1 bépp scan","Terminer":"Jeexal","Stock actuel":"Stock bi léegi","Quantité arrivée":"Lim bi agsi","Ajouter et scanner le suivant":"Yokk te scanner bi ci topp","Arrivage terminé":"Marsandiis yi agsi : jeex na","Résultat":"Li mu jur","Détail":"Detaay","Scannez chaque article arrivé, un après l'autre.":"Scanner bépp marsandiis bu agsi, benn-benn.","Article créé":"Def nañu marsandiis bi","📷 Prendre une photo du produit":"📷 Fotoal marsandiis bi","Changer la photo":"Soppi foto bi","Enlever":"Far","La photo aide à reconnaître l'article dans le stock et à la vente.":"Foto bi dina dimbali ngir xàmmee marsandiis bi ci stock ak ci jaay.","Recherche du produit sur internet…":"Mangi seet marsandiis bi ci internet…","Produit pas trouvé sur internet : écrivez le nom.":"Gisuñu ko ci internet : bindal tur bi.","Trouvé sur internet : vérifiez le nom et le prix.":"Gis nañu ko ci internet : seetal tur bi ak njëg gi.","Produit trouvé sans nom : écrivez-le.":"Gis nañu ko te amul tur : bindal ko.","Photo illisible, réessayez":"Foto bi baaxul, jéemaatal","Nom du produit":"Turu marsandiis bi","(s'il y en a)":"(su amee)","Appuyez sur Scan":"Bësal Scan","Prix de vente (F)":"Njëgu jaay (F)","Combien vous en avez ?":"Ñaata nga am ?","Vous l'achetez comment ?":"Naka ngay jënde ?","À la pièce":"Benn-benn","Au carton / paquet":"Ci kartoŋ / paket","Prix d'achat de 1 pièce (F)":"Njëgu jënd benn pis (F)","(pour voir le bénéfice)":"(ngir gis bénéfice bi)","Pièces dans 1 carton":"Ñaata pis ci benn kartoŋ","Prix de 1 carton (F)":"Njëgu benn kartoŋ (F)","Plus de détails (pas obligatoire)":"Yeneen leeral (du dole)","Vendu par":"Ñu ngi koy jaay ci","pour revendeurs":"ngir jaaykat yi","M'avertir s'il reste moins de":"Xamal ma su desee lu yées","Mettre un bouton dans « Vente rapide »":"Def bouton ci « Jaay bu gaaw »","Marchandise arrivée":"Marsandiis bu agsi","Pièces reçues":"Pis yi agsi","Le client donne (F)":"Li kiliyaan bi jox (F)","Crédit ou client connu":"Bor walla kiliyaan bu ñu xam","Le client paie plus tard (crédit)":"Kiliyaan bi dina fey ginnaaw (bor)","Obligatoire si crédit":"War na su dee bor","Il paiera le":"Dina fey ci","Encaisser":"Jot xaalis bi","Le reste ira en crédit : ouvrez « Crédit ou client connu » et écrivez son nom.":"Li des dina dem ci bor : ubbil « Bor walla kiliyaan bu ñu xam » te bind turam.","🖨 Imprimer":"🖨 Imprime","Imprimante Bluetooth (Android)":"Imprimante Bluetooth (Android)","Clôture de caisse":"Tëj kees bi","Clôture de caisse (envoyer / imprimer)":"Tëj kees bi (yónnee / imprime)","Argent compté dans la caisse (F)":"Xaalis bi nga waññ ci kees bi (F)","Comptez les espèces et écrivez ici":"Waññil cash bi te bind ko fii","Envoyer sur mon WhatsApp":"Yónnee ko ci sama WhatsApp","🖨 Imprimer / PDF":"🖨 Imprime / PDF","Copier":"Copier","Imprimé":"Imprime na","📄 Rapport complet en PDF (ventes, stock, crédits…)":"📄 Rapport bu mat ci PDF (jaay, stock, bor…)","Bénéfice, clôture, rapport PDF":"Bénéfice, tëj kees, rapport PDF","Pas assez de stock":"Stock bi doyul","Vendre seulement ce qui reste":"Jaay li des rekk","Retour au panier":"Dellu ci panier bi","Vous n'avez pas assez pour cette vente :":"Amoo lu doy ngir jaay bii :","Divers":"Yeneen","Billets":"Kayitu xaalis","Pièces":"Weñ","Articles qui ne bougent pas":"Marsandiis yu dul jaayu","Pas vendus depuis 30 jours : baissez le prix ou n'en rachetez pas.":"Jaayuñu leen ba 30 fan : wàññil njëg gi walla bul ci jëndaat."
 };
 const MODE_WO={"Espèces":"Cash","Crédit":"Bor"};
 const mw=m=>MODE_WO[m]||m;
@@ -300,7 +315,7 @@ const WO_RX=[
 [/^Code non valable pour cette boutique\. Vérifiez l'ID (.+)\.$/,"Code bii baaxul ci bitig bii. Seetal ID $1."],
 [/^Ce code est déjà expiré \((.+)\)\.$/,"Code bii jeex na ba noppi ($1)."],
 [/^(\d+) article\(s\) périmé\(s\)$/,"$1 marsandiis jeex nañu"],[/^(\d+) article\(s\) bientôt périmé\(s\)$/,"$1 marsandiis dinañu jeex"],[/^Attention : (.+) est périmé$/,"Moytul : $1 jeex na"],[/^Dernière sauvegarde il y a (\d+) jours\.$/,"Sauvegarde bu mujj : am na $1 fan."],[/^Dernière sauvegarde : (.+)$/,"Sauvegarde bu mujj : $1"],[/^Ou paquets \/ cartons reçus \(× (\d+)\)$/,"Walla paket / kartoŋ yi agsi (× $1)"],
-[/^Encaisser (.+) · reste (.+)$/,"Jot $1 · des na $2"],[/^Encaisser (.+)$/,"Jot $1"],[/^Enregistrer le crédit · (.+)$/,"Denc bor bi · $1"],[/^Ex : (.*)$/,"Misaal : $1"],[/^tout : (.*)$/,"lépp : $1"]
+[/^Encaisser (.+) · reste (.+)$/,"Jot $1 · des na $2"],[/^Encaisser (.+)$/,"Jot $1"],[/^Enregistrer le crédit · (.+)$/,"Denc bor bi · $1"],[/^Il reste seulement (.+)$/,"Des na rekk $1"],[/^Stock fini : (.+)\. Ajoutez du stock \(\+ Stock\)$/,"Stock bi jeex na : $1. Yokkal stock (+ Stock)"],[/^Ex : (.*)$/,"Misaal : $1"],[/^tout : (.*)$/,"lépp : $1"]
 ];
 const WO_SUB=[[/ · Client comptant$/," · Kiliyaan bu fey cash"],[/ · Sans nom$/," · Amul tur"],[/ · Espèces$/," · Cash"],[/ · Crédit$/," · Bor"],
 [/ · promis le /g," · dige na fey ci "],[/ · payé /g," · fey na "],[/article\(s\)/g,"marsandiis"],[/ · hors stock/g," · bu nekkul ci stock"],[/ · exp\. /g," · jeex ci "],[/^pas de numéro/,"amul nimero"]];
@@ -326,9 +341,15 @@ document.documentElement.lang=LANG==='wo'?'wo':'fr';
 <script>
 // ===== Réglages du vendeur de l'app (Seck Tech) =====
 const TEST=false;
-const SUPPORT_WA='221773573055';
-const SUPPORT_NAME='Seck Tech';
-const PRIX_MOIS='5 000 F';
+let SUPPORT_WA='221778790006';
+let SUPPORT_NAME='Seck Tech';
+let PRIX_MOIS='5 000 F';
+let PAY_NUM='';   // numéro Wave/OM affiché ; vient de config.json sur GitHub
+function applyCfg(c){if(!c||typeof c!=='object')return;const d=x=>String(x||'').replace(/\D/g,'');
+  if(d(c.whatsapp).length>=9){let w=d(c.whatsapp);if(w.length===9)w='221'+w;SUPPORT_WA=w;}
+  if(d(c.paiement).length>=9)PAY_NUM=String(c.paiement).trim();if(c.prix)PRIX_MOIS=String(c.prix);if(c.nom)SUPPORT_NAME=String(c.nom);}
+try{applyCfg(JSON.parse(localStorage.getItem('carnetBoutique.cfg')||'null'));}catch(e){}
+try{fetch('config.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(c=>{if(!c)return;applyCfg(c);try{localStorage.setItem('carnetBoutique.cfg',JSON.stringify(c));}catch(e){}try{if(S)render();}catch(e){}}).catch(()=>{});}catch(e){}
 const TRIAL_DAYS=14, GRACE_DAYS=3;
 // ===== Clé des codes (doit être identique dans le panneau Abonnements) =====
 const SECRET='SeckTech|CarnetBoutique|v1|9fQ2-Tb7x-Kz41';
@@ -467,7 +488,7 @@ function vHome(){const t=effToday();const today=S.sales.filter(s=>s.date.slice(0
 
 // ===== Vendre =====
 function newDraft(){return{lines:[],client:'',phone:'',mode:'Espèces',paid:'',due:'',gros:false,q:'',free:false,fName:'',fQty:'1',fPrice:'',fromQuote:null};}
-function lineHTML(l,i){return '<div class="li"><div class="li-name">'+esc(l.name)+'<small>'+esc(l.unit||'pièce')+(l.pid?'':' · hors stock')+'</small></div><button class="x" aria-label="Retirer" data-act="delLine" data-i="'+i+'">×</button>'+
+function lineHTML(l,i){return '<div class="li"><div class="li-name">'+esc(l.name)+'<small>'+esc(l.unit||'pièce')+(l.pid?(prod(l.pid)?' · stock '+q2(prod(l.pid).qty):''):' · hors stock')+'</small><small class="lw" id="lw'+i+'">'+lineWarn(l)+'</small></div><button class="x" aria-label="Retirer" data-act="delLine" data-i="'+i+'">×</button>'+
   '<div class="li-ctrl"><div class="step"><button data-act="qm" data-i="'+i+'" aria-label="Moins">−</button><input class="li-qty" data-i="'+i+'" inputmode="decimal" value="'+q2(l.qty)+'" aria-label="Quantité"><button data-act="qp" data-i="'+i+'" aria-label="Plus">+</button></div>'+
   '<input class="li-price" data-i="'+i+'" inputmode="numeric" value="'+l.price+'" aria-label="Prix unitaire"><span class="li-amt" id="la'+i+'">'+F(l.qty*l.price)+'</span></div></div>';}
 function vSell(){if(!canWrite())return '<h2>Nouvelle vente</h2><div class="card empty">L\'abonnement est terminé. Entrez un nouveau code dans Plus › Réglages pour vendre.</div>';
@@ -504,8 +525,10 @@ function renderResults(){const box=$('pResults');if(!box||!draft)return;const q=
   const r=S.products.filter(p=>p.name.toLowerCase().includes(q)||(p.code&&p.code.includes(q))).slice(0,6);
   box.innerHTML=r.length?r.map(p=>'<button class="res" data-act="addProd" data-id="'+p.id+'"><span>'+thumb(p)+'<span style="min-width:0"><b>'+esc(p.name)+'</b><div class="s">stock '+q2(p.qty)+' '+esc(p.unit)+'</div></span></span><b>'+F(priceOf(p))+'</b></button>').join(''):'<div class="small">Aucun article trouvé. Ajoutez-le dans Stock ou en « hors stock ».</div>';}
 const priceOf=p=>draft&&draft.gros&&p.priceGros>0?p.priceGros:p.price;
-function addProdToDraft(p){const ex=draft.lines.find(l=>l.pid===p.id);if(ex)ex.qty=q2(ex.qty+1);else draft.lines.push({pid:p.id,name:p.name,unit:p.unit,qty:1,price:priceOf(p)});
-  if(expState(p)==='out')toast('Attention : '+p.name+' est périmé');else if(p.qty-(ex?ex.qty:1)<0)toast('Attention : stock de '+p.name+' insuffisant');}
+function addProdToDraft(p){const ex=draft.lines.find(l=>l.pid===p.id);const want=(ex?ex.qty:0)+1;
+  if(want>p.qty){toast(p.qty>0?'Il reste seulement '+q2(p.qty)+' '+p.unit+' de '+p.name:'Stock fini : '+p.name+'. Ajoutez du stock (+ Stock)');try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}return false;}
+  if(ex)ex.qty=q2(ex.qty+1);else draft.lines.push({pid:p.id,name:p.name,unit:p.unit,qty:1,price:priceOf(p)});
+  if(expState(p)==='out')toast('Attention : '+p.name+' est périmé');return true;}
 function readDraft(){if(!draft)return;const m={dClient:'client',dPhone:'phone',dPaid:'paid',dDue:'due',fName:'fName',fQty:'fQty',fPrice:'fPrice',pSearch:'q'};
   Object.keys(m).forEach(k=>{const e=$(k);if(e)draft[m[k]]=e.value;});
   document.querySelectorAll('.li-qty').forEach(e=>{const l=draft.lines[+e.dataset.i];if(l)l.qty=num(e.value);});
@@ -517,7 +540,8 @@ function changeHTML(){if(!draft||!draft.lines.length)return '';const c=calc();
   if(c.missing>0)return '<div class="banner warn"><span>Il manque</span><b style="font-family:var(--display);font-size:30px">'+F(c.missing)+'</b><span class="small" style="color:inherit">'+(c.given>0?'Reçu '+F(c.given)+'. ':'')+'Le reste ira en crédit : ouvrez « Crédit ou client connu » et écrivez son nom.</span></div>';
   return '<div class="banner" style="background:var(--accent-soft);color:var(--accent)"><b>Montant exact : rien à rendre</b></div>';}
 function updChange(){const b=$('changeBox');if(b)b.innerHTML=changeHTML();const e=$('encBtn');if(e&&draft)e.textContent=encLabel();}
-function updTotals(){if(!draft)return;draft.lines.forEach((l,i)=>{const e=$('la'+i);if(e)e.textContent=F(l.qty*l.price);});const t=$('saleTotal');if(t)t.textContent=F(draft.lines.reduce((a,l)=>a+l.qty*l.price,0));updChange();}
+function lineWarn(l){const p=l.pid&&prod(l.pid);return p&&l.qty>p.qty?'⚠ Il reste seulement '+q2(p.qty)+' '+esc(p.unit):'';}
+function updTotals(){if(!draft)return;draft.lines.forEach((l,i)=>{const e=$('lw'+i);if(e)e.innerHTML=lineWarn(l);});draft.lines.forEach((l,i)=>{const e=$('la'+i);if(e)e.textContent=F(l.qty*l.price);});const t=$('saleTotal');if(t)t.textContent=F(draft.lines.reduce((a,l)=>a+l.qty*l.price,0));updChange();}
 
 // ===== Clients / crédits =====
 function vDebt(){const all=S.clients.map(c=>({c,b:balance(c.id)}));const owe=all.filter(x=>x.b>0).sort((a,b)=>(isLate(b.c)-isLate(a.c))||b.b-a.b);
@@ -577,7 +601,7 @@ function vReport(){const t=effToday();const from=period==='day'?t:period==='week
 function vSet(){const L=licState();const msg='Bonjour '+SUPPORT_NAME+', je veux payer l\'abonnement Carnet Boutique.\nBoutique : '+S.shop.name+'\nID boutique : '+S.lic.id;
   return '<button class="back" data-tab="more">‹ Plus</button><h2>Abonnement</h2><div class="card stack"><div class="small" style="text-align:center">ID de votre boutique — à donner pour payer</div><div class="idbox">'+S.lic.id+'</div>'+
   '<div style="text-align:center">'+(L.st==='blocked'||L.st==='grace'?'<span class="chip bad">Expiré le '+fdate(L.end)+'</span>':'<span class="chip '+(L.st==='warn'?'warn':'ok')+'">'+(L.trial?'Essai gratuit':'Abonné')+' jusqu\'au '+fdate(L.end)+'</span>')+'</div>'+
-  '<div class="small">Prix : '+PRIX_MOIS+' par mois, par Wave ou Orange Money au '+SUPPORT_WA.replace(/^221(\d\d)(\d{3})(\d\d)(\d\d)$/,'+221 $1 $2 $3 $4')+'. Après le paiement vous recevez un code.</div>'+
+  '<div class="small">Prix : '+PRIX_MOIS+' par mois, par Wave ou Orange Money au '+(PAY_NUM||SUPPORT_WA.replace(/^221(\d\d)(\d{3})(\d\d)(\d\d)$/,'+221 $1 $2 $3 $4'))+'. Après le paiement vous recevez un code.</div>'+
   '<a class="btn ghost" target="_blank" rel="noopener" href="'+waLink(SUPPORT_WA,msg)+'">Contacter '+SUPPORT_NAME+' sur WhatsApp</a>'+
   '<label class="f">Code reçu<input id="code" autocapitalize="characters" placeholder="Ex : 261105-ABC123"></label><button class="btn" data-act="code">Activer le code</button>'+(S.lic.code?'<div class="small">Dernier code : '+esc(S.lic.code)+'</div>':'')+'</div>'+
   '<h3>Ma boutique</h3><form id="fShop" class="card stack"><label class="f">Nom<input id="sName" value="'+esc(S.shop.name)+'"></label><label class="f">Propriétaire<input id="sOwner" value="'+esc(S.shop.owner)+'"></label><div class="grid2"><label class="f">Téléphone<input id="sPhone" value="'+esc(S.shop.phone)+'"></label><label class="f">Adresse<input id="sAddr" value="'+esc(S.shop.address)+'"></label></div><label class="f">Message en bas des factures<input id="sFoot" value="'+esc(S.shop.footer||'')+'" placeholder="Merci pour votre confiance !"></label><button class="btn line" type="submit">Enregistrer</button></form>'+
@@ -688,7 +712,7 @@ async function scanImage(file){const msg=t=>{const e=$('scanMsg');if(e)e.textCon
   msg('Code non lu. Reprenez la photo plus près (15 cm), bien nette et éclairée, code à plat, ou tapez les chiffres.');}
 const byCode=c=>S.products.find(p=>p.code&&p.code===c);
 function scanForSale(){if(!w())return;openScanner('Scanner pour vendre',c=>{const p=byCode(c);if(!draft)draft=newDraft();
-  if(p){addProdToDraft(p);tab='sell';render();toast('+1 '+p.name);}
+  if(p){const ok=addProdToDraft(p);tab='sell';render();if(ok)toast('+1 '+p.name);}
   else{tab='sell';render();openSheet('Article inconnu','<div class="card stack"><div>Le code <b>'+esc(c)+'</b> n\'est pas dans votre stock.</div><button class="btn" data-act="createFromCode" data-c="'+esc(c)+'">Créer l\'article</button><button class="btn line" data-act="close">Annuler</button></div>');}});}
 
 // ===== Photos des produits =====
@@ -880,6 +904,7 @@ document.addEventListener('click',e=>{
   const A={
   closeBg:()=>{if(e.target===el){if(RS&&RS.active)endRestock();else closeSheet();}},close:()=>{if(RS&&RS.active)endRestock();else closeSheet();},
   restock:startRestock,
+  fitStock:()=>{draft.lines.forEach(l=>{const pp=l.pid&&prod(l.pid);if(pp&&l.qty>pp.qty)l.qty=Math.max(0,q2(pp.qty));});draft.lines=draft.lines.filter(l=>l.qty>0);closeSheet();render();toast('Quantités corrigées : vérifiez et encaissez');},
   print:()=>printText(el.dataset.txt),pdfShare,pdfOpen,pdfPrint,imgShare,btPrint:()=>btPrint(el.dataset.txt),cloture:showCloture,ccPrint:()=>printText(clotureText()),fullRep:()=>printHTML(fullReport()),ccCopy:()=>copyText(plain(clotureText())),ccBt:()=>btPrint(clotureText()),
   buyMode:()=>{const c=el.dataset.m==='c';$('buyP').hidden=c;$('buyC').hidden=!c;document.querySelectorAll('[data-act=buyMode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===el.dataset.m)));updGain();},
   addAmt:()=>{readDraft();const v=num(el.dataset.v);const ex=draft.lines.find(l=>!l.pid&&l.name==='Divers'&&l.price===v);if(ex)ex.qty=q2(ex.qty+1);else draft.lines.push({pid:null,name:'Divers',unit:'pièce',qty:1,price:v});render();toast('+ '+F(v));},prImgDel:()=>{PIMG='';updImgBox();},rsEnd:endRestock,
@@ -907,10 +932,13 @@ document.addEventListener('click',e=>{
   showFree:()=>{readDraft();draft.free=true;render();},
   addFree:()=>{readDraft();const n=draft.fName.trim(),q=num(draft.fQty),p=num(draft.fPrice);if(!n)return toast('Écrivez le nom');if(q<=0||p<=0)return toast('Quantité et prix obligatoires');draft.lines.push({pid:null,name:n,unit:'pièce',qty:q,price:p});Object.assign(draft,{free:false,fName:'',fQty:'1',fPrice:''});render();},
   qm:()=>{readDraft();const l=draft.lines[+el.dataset.i];l.qty=q2(Math.max(0,l.qty-1));if(l.qty===0)draft.lines.splice(+el.dataset.i,1);render();},
-  qp:()=>{readDraft();const l=draft.lines[+el.dataset.i];l.qty=q2(l.qty+1);render();},
+  qp:()=>{readDraft();const l=draft.lines[+el.dataset.i];const pp=l.pid&&prod(l.pid);if(pp&&l.qty+1>pp.qty)return toast('Il reste seulement '+q2(pp.qty)+' '+pp.unit+' de '+pp.name);l.qty=q2(l.qty+1);render();},
   delLine:()=>{readDraft();draft.lines.splice(+el.dataset.i,1);render();},
   clearDraft:()=>{draft=newDraft();render();},
   saveSale:()=>{readDraft();if(!w())return;const d=draft;d.lines=d.lines.filter(l=>l.qty>0);if(!d.lines.length)return toast('Panier vide');
+    const over=d.lines.filter(l=>{const pp=l.pid&&prod(l.pid);return pp&&l.qty>pp.qty;});
+    if(over.length)return openSheet('Pas assez de stock','<div class="banner bad"><b>Vous n\'avez pas assez pour cette vente :</b>'+over.map(l=>{const pp=prod(l.pid);return '<span>'+esc(l.name)+' : demandé <b>'+q2(l.qty)+'</b>, il reste <b>'+q2(pp.qty)+'</b></span>';}).join('')+'</div>'+
+      '<div class="stack" style="margin-top:12px"><button class="btn" data-act="fitStock">Vendre seulement ce qui reste</button><button class="btn line" data-act="close">Retour au panier</button><div class="small">Si le stock dans l\'app est faux (vous avez vraiment la marchandise), corrigez-le dans Stock ou avec « + Stock ».</div></div>');
     const cc=calc(),total=cc.total,paid=cc.paid;
     const c=d.client.trim()?findOrCreateClient(d.client,d.phone):null;if(paid<total&&!c){d.showCli=true;render();setTimeout(()=>{const e=$('dClient');if(e){e.scrollIntoView({block:'center'});e.focus();}},50);return toast('Écrivez le nom du client pour le crédit');}
     if(c&&paid<total&&d.due)c.due=d.due;
@@ -983,5 +1011,5 @@ document.addEventListener('submit',e=>{e.preventDefault();
   if(e.target.id==='fShop'){Object.assign(S.shop,{name:val('sName').trim()||S.shop.name,owner:val('sOwner').trim(),phone:val('sPhone').trim(),address:val('sAddr').trim(),footer:val('sFoot').trim()});save();render();toast('Boutique enregistrée');}});
 S=load();render();
 </script>
-
-</body></html>
+</body>
+</html>
