@@ -215,7 +215,7 @@ const WO={
 "Mettez 0 si vous payez plus tard : ça ira dans « Je dois ».":"Dugal 0 su fekkee dangay fey ginnaaw : dina dem ci « Sama bor ».",
 "Enregistrer l'achat (stock mis à jour)":"Denc jënd bi (stock bi dina yeesal)","Nouveau fournisseur":"Fournisseur bu bees","Je lui dois déjà (F)":"Li ma ko ameel ba noppi (F)",
 "Cette partie est réservée au patron.":"Wàll wii, patron rekk.","Ouvrir":"Ubbi",
-"Mettez le code-barres dans le cadre.":"Def code-barres bi ci biir kaadar bi.","Prendre une photo du code":"Fotoal code bi","ou tapez les chiffres":"walla bind siifar yi",
+"Mettez le code-barres dans le cadre.":"Def code-barres bi ci biir kaadar bi.","Tenez le code à 15-20 cm, bien éclairé et à plat dans le cadre. Le scan se fait tout seul.":"Teg code bi 15-20 cm, mu leer bu baax te tëdd ci biir kaadar bi. Scan bi dina def boppam.","Code non lu. Reprenez la photo plus près (15 cm), bien nette et éclairée, code à plat, ou tapez les chiffres.":"Jàngu ma code bi. Fotoal ko ci wetam (15 cm), mu set te leer, code bi tëdd, walla bind siifar yi.","Prendre une photo du code":"Fotoal code bi","ou tapez les chiffres":"walla bind siifar yi",
 "La caméra en direct n'est pas disponible ici : prenez une photo du code ou tapez les chiffres.":"Kamera bi du dox fii : fotoal code bi walla bind siifar yi.",
 "Caméra refusée ou indisponible : prenez une photo du code ou tapez les chiffres.":"Kamera bi mayuñu ko walla du dox : fotoal code bi walla bind siifar yi.",
 "Caméra indisponible : prenez une photo du code.":"Kamera bi du dox : fotoal code bi.","Lecture de la photo…":"Mangi jàng foto bi…",
@@ -602,17 +602,35 @@ function needPin(then){if(!S.pin||unlocked)return then();pinThen=then;openSheet(
 let qr=null,scanCb=null;
 const HQ=()=>window.Html5Qrcode||(window.__Html5QrcodeLibrary__&&window.__Html5QrcodeLibrary__.Html5Qrcode);
 function stopCam(){if(!qr)return;const q=qr;qr=null;try{const p=q.isScanning?q.stop():Promise.resolve();p.then(()=>{try{q.clear()}catch(e){}}).catch(()=>{});}catch(e){}}
-function openScanner(title,cb){openSheet(title,'<div id="reader"></div><div class="small" id="scanMsg" style="margin:8px 0">Mettez le code-barres dans le cadre.</div>'+
+const HQF=()=>window.Html5QrcodeSupportedFormats||(window.__Html5QrcodeLibrary__&&window.__Html5QrcodeLibrary__.Html5QrcodeSupportedFormats);
+function hqOpts(){const f=HQF();const o={verbose:false,experimentalFeatures:{useBarCodeDetectorIfSupported:true}};
+  if(f)o.formatsToSupport=['EAN_13','EAN_8','UPC_A','UPC_E','CODE_128','CODE_39','ITF','QR_CODE'].map(k=>f[k]).filter(v=>v!==undefined);return o;}
+function openScanner(title,cb){openSheet(title,'<div id="reader"></div><div class="small" id="scanMsg" style="margin:8px 0">Tenez le code à 15-20 cm, bien éclairé et à plat dans le cadre. Le scan se fait tout seul.</div>'+
   '<div class="stack"><label class="btn ghost">Prendre une photo du code<input type="file" id="scanFile" accept="image/*" capture="environment" hidden></label>'+
   '<div class="grid2" style="grid-template-columns:1fr auto"><input id="scanManual" inputmode="numeric" placeholder="ou tapez les chiffres"><button class="btn sm line" data-act="scanManual">OK</button></div></div>');
   scanCb=cb;const H=HQ();const msg=t=>{const e=$('scanMsg');if(e)e.textContent=t;};
   if(!H){msg('La caméra en direct n\'est pas disponible ici : prenez une photo du code ou tapez les chiffres.');return;}
-  try{qr=new H('reader',{verbose:false});qr.start({facingMode:'environment'},{fps:12,qrbox:(w,h)=>({width:Math.min(300,w*0.85),height:Math.min(150,h*0.5)})},t=>gotCode(t),()=>{}).catch(()=>{qr=null;msg('Caméra refusée ou indisponible : prenez une photo du code ou tapez les chiffres.');});}catch(e){qr=null;msg('Caméra indisponible : prenez une photo du code.');}}
+  const cfg={fps:15,disableFlip:true,qrbox:(w,h)=>({width:Math.max(200,Math.floor(Math.min(420,w*0.92))),height:Math.max(120,Math.floor(Math.min(220,h*0.6)))}),
+    videoConstraints:{facingMode:'environment',width:{ideal:1920},height:{ideal:1080},advanced:[{focusMode:'continuous'}]}};
+  const go2=c=>{qr=new H('reader',hqOpts());return qr.start({facingMode:'environment'},c,t=>gotCode(t),()=>{});};
+  try{go2(cfg).catch(()=>{try{qr&&qr.clear()}catch(e){}const c2=Object.assign({},cfg);delete c2.videoConstraints;go2(c2).catch(()=>{qr=null;msg('Caméra refusée ou indisponible : prenez une photo du code ou tapez les chiffres.');});});}
+  catch(e){qr=null;msg('Caméra indisponible : prenez une photo du code.');}}
 function gotCode(t){t=String(t||'').trim();if(!t)return;const cb=scanCb;scanCb=null;closeSheet();try{navigator.vibrate&&navigator.vibrate(60)}catch(e){}if(cb)cb(t);}
+function loadImg(file){return new Promise((ok,ko)=>{const u=URL.createObjectURL(file);const im=new Image();im.onload=()=>{URL.revokeObjectURL(u);ok(im);};im.onerror=()=>{URL.revokeObjectURL(u);ko();};im.src=u;});}
+function variant(im,max,rot,crop){const sw=im.naturalWidth,sh=im.naturalHeight;let sx=0,sy=0,cw=sw,ch=sh;
+  if(crop){cw=sw*0.7;ch=sh*0.5;sx=(sw-cw)/2;sy=(sh-ch)/2;}
+  const k=Math.min(1,max/Math.max(cw,ch));const w=Math.round(cw*k),h=Math.round(ch*k);
+  const c=document.createElement('canvas');const r=rot%180!==0;c.width=r?h:w;c.height=r?w:h;const g=c.getContext('2d');
+  g.filter='grayscale(1) contrast(1.4)';g.translate(c.width/2,c.height/2);g.rotate(rot*Math.PI/180);g.drawImage(im,sx,sy,cw,ch,-w/2,-h/2,w,h);
+  return new Promise(ok=>c.toBlob(b=>ok(new File([b],'v.jpg',{type:'image/jpeg'})),'image/jpeg',0.92));}
 async function scanImage(file){const msg=t=>{const e=$('scanMsg');if(e)e.textContent=t;};msg('Lecture de la photo…');
   try{if('BarcodeDetector' in window){const bmp=await createImageBitmap(file);const r=await new BarcodeDetector().detect(bmp);if(r&&r[0])return gotCode(r[0].rawValue);}}catch(e){}
   const H=HQ();if(!H)return msg('Impossible de lire la photo ici. Tapez les chiffres sous le code.');
-  stopCam();try{const q=new H('reader',{verbose:false});const t=await q.scanFile(file,false);try{q.clear()}catch(e){}gotCode(t);}catch(e){msg('Code non lu. Reprenez la photo plus près, bien nette, ou tapez les chiffres.');}}
+  stopCam();let im=null;try{im=await loadImg(file);}catch(e){}
+  const tries=[()=>Promise.resolve(file)];
+  if(im)[[1600,0,false],[1000,0,true],[1600,0,true],[1000,0,false],[1200,90,false],[1200,90,true]].forEach(a=>tries.push(()=>variant(im,...a)));
+  for(const t of tries){try{const f=await t();const q=new H('reader',hqOpts());const r=await q.scanFile(f,false);try{q.clear()}catch(e){}if(r)return gotCode(r);}catch(e){}}
+  msg('Code non lu. Reprenez la photo plus près (15 cm), bien nette et éclairée, code à plat, ou tapez les chiffres.');}
 const byCode=c=>S.products.find(p=>p.code&&p.code===c);
 function scanForSale(){if(!w())return;openScanner('Scanner pour vendre',c=>{const p=byCode(c);if(!draft)draft=newDraft();
   if(p){addProdToDraft(p);tab='sell';render();toast('+1 '+p.name);}
