@@ -1,3 +1,10 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<script>(function(){if(!document.querySelector('meta[name="viewport"]')){var m=document.createElement('meta');m.name='viewport';m.content='width=device-width, initial-scale=1, viewport-fit=cover';(document.head||document.documentElement).appendChild(m);}})();</script>
 <title>Carnet Boutique</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -126,6 +133,15 @@ html.big body{zoom:1.15}
 @media (max-width:360px){.grid3{grid-template-columns:1fr 1fr}}
 @media (prefers-reduced-motion:no-preference){.sheet{animation:up .18s ease-out}@keyframes up{from{transform:translateY(30px);opacity:.6}}}
 </style>
+<style>
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+[hidden]{display:none!important}
+img{max-width:100%}
+</style>
+</head>
+<body>
 
 <div id="app"></div>
 <div id="sheetRoot"></div>
@@ -719,3 +735,5 @@ document.addEventListener('submit',e=>{e.preventDefault();
   if(e.target.id==='fShop'){Object.assign(S.shop,{name:val('sName').trim()||S.shop.name,owner:val('sOwner').trim(),phone:val('sPhone').trim(),address:val('sAddr').trim(),footer:val('sFoot').trim()});save();render();toast('Boutique enregistrée');}});
 S=load();render();
 </script>
+</body>
+</html>
