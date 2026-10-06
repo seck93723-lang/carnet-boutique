@@ -1,9 +1,4 @@
-<!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="format-detection" content="telephone=no">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script>(function(){if(!document.querySelector('meta[name="viewport"]')){var m=document.createElement('meta');m.name='viewport';m.content='width=device-width, initial-scale=1, viewport-fit=cover';(document.head||document.documentElement).appendChild(m);}})();</script>
 <title>Carnet Boutique</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -57,6 +52,13 @@ h3{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--mute
 .stat.debt .v{color:var(--debt)} .stat.cash .v{color:var(--accent)} .stat.bad .v{color:var(--danger)}
 .stat.wide{grid-column:1/-1}
 #printArea{display:none}
+#pdfArea.tick{width:420px;padding:22px 20px;white-space:pre-wrap;font:15px/1.5 ui-monospace,Menlo,Consolas,monospace}
+.prev{max-height:58vh;overflow:auto;border:1px solid var(--line);border-radius:12px;background:#fff;padding:6px}.prev img{display:block;width:100%;height:auto}
+#pdfArea{position:fixed;left:-10000px;top:0;width:760px;background:#fff;color:#000;font:14px/1.4 system-ui,-apple-system,sans-serif;padding:0;color-scheme:light}
+#pdfArea .rep h1{font-size:26px;margin:0}#pdfArea .sub{color:#444;margin-bottom:8px}#pdfArea h2{font-size:19px;margin:8px 0 12px;color:#000}#pdfArea h3{font-size:15px;margin:18px 0 6px;text-transform:uppercase;letter-spacing:.04em;color:#000}
+#pdfArea table{width:100%;border-collapse:collapse}#pdfArea th,#pdfArea td{border-bottom:1px solid #ccc;padding:5px 6px;text-align:left;color:#000}#pdfArea th{background:#eee}#pdfArea td.n{text-align:right;white-space:nowrap}
+#pdfArea .kpi{display:flex;flex-wrap:wrap;gap:8px}#pdfArea .kpi div{border:1px solid #999;border-radius:8px;padding:7px 10px;flex:1 1 30%}#pdfArea .kpi span{display:block;font-size:12px;color:#444}#pdfArea .kpi b{font-size:18px}
+#pdfArea .e{color:#666;margin:3px 0}#pdfArea .foot{margin-top:18px;color:#666;font-size:12px}
 @media print{body>*:not(#printArea){display:none!important}#printArea{display:block!important;color:#000;font:11px/1.35 system-ui,-apple-system,sans-serif}
 #printArea .rep h1{font-size:20px;margin:0}#printArea .sub{color:#444;margin-bottom:6px}#printArea h2{font-size:15px;margin:6px 0 10px}#printArea h3{font-size:12.5px;margin:14px 0 4px;text-transform:uppercase;letter-spacing:.04em}
 #printArea table{width:100%;border-collapse:collapse}#printArea th,#printArea td{border-bottom:1px solid #ccc;padding:3px 4px;text-align:left}#printArea th{background:#eee}#printArea td.n{text-align:right;white-space:nowrap}
@@ -166,15 +168,6 @@ html.big body{zoom:1.15}
 @media (max-width:360px){.grid3{grid-template-columns:1fr 1fr}}
 @media (prefers-reduced-motion:no-preference){.sheet{animation:up .18s ease-out}@keyframes up{from{transform:translateY(30px);opacity:.6}}}
 </style>
-<style>
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-body{margin:0}
-[hidden]{display:none!important}
-img{max-width:100%}
-</style>
-</head>
-<body>
 
 <div id="app"></div>
 <div id="sheetRoot"></div>
@@ -184,7 +177,7 @@ img{max-width:100%}
 // ===== Langue : français par défaut, bouton Wolof =====
 try{if(localStorage.getItem('carnetBoutique.big')==='1')document.documentElement.classList.add('big');}catch(e){}
 var LANG=(function(){try{return localStorage.getItem('carnetBoutique.lang')==='wo'?'wo':'fr';}catch(e){return 'fr';}})();
-const WO={
+const WO={"Préparation du PDF…":"PDF bi mu ngi waaj…","PDF prêt":"PDF bi pare na","📤 Envoyer / Enregistrer le PDF":"📤 Yónnee / Denc PDF bi","👁 Ouvrir le PDF":"👁 Ubbi PDF bi","🖨 Imprimer":"🖨 Imprime","« Envoyer » ouvre le menu du téléphone : choisissez WhatsApp, ou « Enregistrer dans Fichiers ».":"« Yónnee » dina ubbi menu bu telefon bi : tannal WhatsApp, walla « Enregistrer dans Fichiers ».","« Imprimer / PDF » prépare un fichier PDF que vous pouvez envoyer sur WhatsApp ou enregistrer.":"« Imprime / PDF » dina waajal PDF bu nga mën a yónnee ci WhatsApp walla denc ko.","PDF impossible sans internet : connectez-vous une fois":"PDF du mën te internet : laal internet benn yoon","PDF impossible : réessayez":"PDF bi mënul : jéemaatal","Préparation…":"Mu ngi waaj…","Aperçu":"Xool ko bala","Vérifiez, puis choisissez comment l'envoyer.":"Seetal, ba noppi tànn naka ngay ko yónnee.","📄 Envoyer en PDF":"📄 Yónnee ci PDF","🖼 Envoyer en image":"🖼 Yónnee ci nataal","Le menu du téléphone s'ouvre : choisissez WhatsApp, ou « Enregistrer dans Fichiers » / « Enregistrer l'image ».":"Menu bu telefon bi dina ubbiku : tànnal WhatsApp, walla « Enregistrer dans Fichiers » / « Enregistrer l'image ».","Envoi impossible ici : ouvrez l'app depuis son icône":"Yónnee du mën fii : ubbil app bi ak icône bi","Attendez un instant puis réessayez":"Xaaral tuuti te jéemaatal","PDF impossible ici : ouvrez l'app depuis son icône":"PDF du mën fii : ubbil app bi ak icône bi",
 "Accueil":"Kër","Vendre":"Jaay","Clients":"Kiliyaan","Plus":"Yeneen",
 "Abonnement expiré":"Abonnement bi jeex na","Essai gratuit":"Jéem","Essai":"Jéem",
 "Votre abonnement est terminé.":"Sa abonnement jeex na.","Entrer un code":"Dugal code",
@@ -723,8 +716,58 @@ async function lookupOFF(code){const msg=t=>{const e=$('offMsg');if(e){e.textCon
 
 // ===== Impression =====
 const plain=t=>String(t).replace(/\*/g,'');
-function printText(txt){let a=$('printArea');if(!a){a=document.createElement('div');a.id='printArea';document.body.appendChild(a);}
-  a.innerHTML='<pre>'+esc(plain(txt))+'</pre>';setTimeout(()=>{try{window.print();}catch(e){toast('Impression impossible ici');}},50);}
+function printText(txt){makePdf('text',txt);}
+// ===== PDF (marche aussi dans l'icône iPhone, où window.print() ne fait rien) =====
+const PDFLIB={jspdf:['https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js','https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js'],h2c:['https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js','https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js']};
+const libP={};
+function loadLib(k){if(libP[k])return libP[k];const urls=PDFLIB[k];
+  libP[k]=new Promise((ok,ko)=>{let i=0;const nx=()=>{if(i>=urls.length){libP[k]=null;return ko(new Error('lib'));}const sc=document.createElement('script');sc.src=urls[i++];sc.onload=()=>ok();sc.onerror=()=>{sc.remove();nx();};document.head.appendChild(sc);};nx();});
+  return libP[k];}
+window.addEventListener('load',()=>setTimeout(()=>{loadLib('jspdf').catch(()=>{});loadLib('h2c').catch(()=>{});},2500));
+const pdfSafe=t=>plain(t).replace(/[    ]/g,' ').replace(/[−–—]/g,'-').replace(/[’‘]/g,"'").replace(/[“”]/g,'"').replace(/…/g,'...').replace(/✓/g,'OK').replace(/[^\n\x20-\x7E -ÿ]/g,'');
+let PDF=null,DL=null;
+try{if(window.claude&&typeof claude.use==='function')claude.use('downloads').then(d=>{DL=d||null;}).catch(()=>{});}catch(e){}
+function pdfName(){const n=((S.shop&&S.shop.name)||'Carnet').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^\w]+/g,'-').replace(/^-|-$/g,'')||'Carnet';return n+'-'+effToday()+'.pdf';}
+async function snap(box){await new Promise(r=>setTimeout(r,60));const W=box.offsetWidth,H=box.offsetHeight;
+  const sc=Math.max(0.6,Math.min(2,Math.sqrt(14e6/(W*H))));
+  const cv=await html2canvas(box,{scale:sc,backgroundColor:'#ffffff',width:W,windowWidth:W});return{cv,W,H,sc};}
+const toBlob=(cv,t,q)=>new Promise(ok=>cv.toBlob(ok,t,q));
+async function makePdf(kind,data){toast('Préparation…');
+  try{await loadLib('jspdf');await loadLib('h2c');}
+  catch(e){toast('PDF impossible sans internet : connectez-vous une fois');return;}
+  try{const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'mm',format:'a4'});let cvImg;
+    if(kind==='text'){doc.setFont('courier','normal');doc.setFontSize(11);const lh=5.2,top=16,bot=284,left=14;let y=top;
+      for(const raw of pdfSafe(data).split('\n')){const parts=raw===''?['']:doc.splitTextToSize(raw,182);
+        for(const p of parts){if(y>bot){doc.addPage();y=top;}doc.text(p,left,y);y+=lh;}}
+      const box=document.createElement('div');box.id='pdfArea';box.className='tick';box.textContent=plain(data).replace(/[  ]/g,' ');document.body.appendChild(box);
+      try{cvImg=(await snap(box)).cv;}finally{box.remove();}}
+    else{const box=document.createElement('div');box.id='pdfArea';box.innerHTML=data;document.body.appendChild(box);
+      try{const base=box.getBoundingClientRect().top;
+        const cuts=[...box.querySelectorAll('tr,h1,h2,h3,p,.kpi,.foot,.sub,table')].map(el=>Math.round(el.getBoundingClientRect().top-base)).filter(v=>v>0).sort((x,y)=>x-y);
+        const {cv,W,H,sc}=await snap(box);cvImg=cv;const pageH=Math.floor(W*(277/190));let y0=0,first=true;
+        while(y0<H-2){let y1=Math.min(y0+pageH,H);if(y1<H){const c=cuts.filter(v=>v>y0+pageH*0.5&&v<=y0+pageH);if(c.length)y1=c[c.length-1];}
+          const pc=document.createElement('canvas');pc.width=cv.width;pc.height=Math.ceil((y1-y0)*sc);const cx=pc.getContext('2d');cx.fillStyle='#fff';cx.fillRect(0,0,pc.width,pc.height);
+          cx.drawImage(cv,0,Math.floor(y0*sc),cv.width,pc.height,0,0,pc.width,pc.height);
+          if(!first)doc.addPage();first=false;doc.addImage(pc.toDataURL('image/jpeg',0.92),'JPEG',10,10,190,(y1-y0)*190/W);y0=y1;}
+      }finally{box.remove();}}
+    const name=pdfName();if(PDF){PDF.url&&URL.revokeObjectURL(PDF.url);PDF.iurl&&URL.revokeObjectURL(PDF.iurl);}
+    const blob=doc.output('blob');const img=await toBlob(cvImg,'image/png');
+    PDF={blob,name,url:URL.createObjectURL(blob),img,iname:name.replace(/\.pdf$/,'.png'),iurl:img?URL.createObjectURL(img):''};
+    openSheet('Aperçu','<div class="prev">'+(PDF.iurl?'<img src="'+PDF.iurl+'" alt="Aperçu">':'')+'</div>'+
+      '<div class="small" style="margin:8px 0 10px">Vérifiez, puis choisissez comment l\'envoyer.</div><div class="stack">'+
+      '<div class="grid2"><button class="btn" data-act="pdfShare">📄 Envoyer en PDF</button><button class="btn ghost" data-act="imgShare">🖼 Envoyer en image</button></div>'+
+      (DL?'':'<button class="btn line" data-act="pdfPrint">🖨 Imprimer</button>')+
+      '<div class="small">Le menu du téléphone s\'ouvre : choisissez WhatsApp, ou « Enregistrer dans Fichiers » / « Enregistrer l\'image ».</div></div>');}
+  catch(e){toast('PDF impossible : réessayez');}}
+async function shareFile(blob,name,type){if(!blob)return;
+  if(DL){try{await DL.save({filename:name,data:blob});}catch(e){const c=e&&e.code;if(c==='declined')return;if(c==='rate_limited')return toast('Attendez un instant puis réessayez');toast('Envoi impossible ici : ouvrez l\'app depuis son icône');}return;}
+  let f=null;try{f=new File([blob],name,{type});}catch(e){}
+  if(f&&navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f],title:name});return;}catch(e){if(e&&e.name==='AbortError')return;}}
+  const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);}
+function pdfShare(){if(PDF)shareFile(PDF.blob,PDF.name,'application/pdf');}
+function imgShare(){if(PDF)shareFile(PDF.img,PDF.iname,'image/png');}
+function pdfOpen(){pdfShare();}
+function pdfPrint(){if(!PDF)return;const w=window.open(PDF.url,'_blank');if(w){setTimeout(()=>{try{w.print();}catch(e){}},800);}else{try{window.print();}catch(e){toast('Impression impossible ici : utilisez « Envoyer »');}}}
 const ascii=t=>plain(t).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/×/g,'x').replace(/[—–]/g,'-').replace(/[«»]/g,'"').replace(/’/g,"'").replace(/[^\x0A\x20-\x7E]/g,'');
 let BT=null;
 async function btPrint(txt){if(!navigator.bluetooth)return toast('Bluetooth pas disponible sur ce téléphone');
@@ -736,8 +779,7 @@ async function btPrint(txt){if(!navigator.bluetooth)return toast('Bluetooth pas 
     for(let i=0;i<out.length;i+=100){const part=out.slice(i,i+100);if(BT.ch.properties.writeWithoutResponse)await BT.ch.writeValueWithoutResponse(part);else await BT.ch.writeValue(part);}
     toast('Imprimé');}catch(e){if(e&&e.name==='NotFoundError')return;BT=null;toast('Impression Bluetooth impossible : essayez « Imprimer »');}}
 
-function printHTML(html){let a=$('printArea');if(!a){a=document.createElement('div');a.id='printArea';document.body.appendChild(a);}
-  a.innerHTML=html;setTimeout(()=>{try{window.print();}catch(e){toast('Impression impossible ici');}},80);}
+function printHTML(html){makePdf('html',html);}
 function fullReport(){const t=effToday();const from=period==='day'?t:period==='week'?addDays(t,-6):t.slice(0,8)+'01';const inP=d=>d.slice(0,10)>=from;
   const pl=period==='day'?'Aujourd\'hui ('+fdate(t)+')':period==='week'?'7 derniers jours ('+fdate(from)+' – '+fdate(t)+')':'Mois en cours ('+fdate(from)+' – '+fdate(t)+')';
   const sales=S.sales.filter(x=>inP(x.date)),pays=S.payments.filter(x=>inP(x.date)),exps=S.expenses.filter(x=>inP(x.date));
@@ -784,7 +826,7 @@ function showCloture(){CLC='';const txt=clotureText();
   '<a class="btn" id="ccWa" target="_blank" rel="noopener" href="'+waLink(S.shop.phone,txt)+'">Envoyer sur mon WhatsApp</a>'+
   '<div class="grid2"><button class="btn line" data-act="ccPrint">🖨 Imprimer / PDF</button><button class="btn line" data-act="ccCopy">Copier</button></div>'+
   (navigator.bluetooth?'<button class="btn line" data-act="ccBt">Imprimante Bluetooth (Android)</button>':'')+
-  '<div class="small">Sur iPhone, « Imprimer / PDF » ouvre la page d\'impression : écartez deux doigts sur l\'aperçu pour obtenir le PDF et l\'envoyer.</div></div>');}
+  '<div class="small">« Imprimer / PDF » prépare un fichier PDF que vous pouvez envoyer sur WhatsApp ou enregistrer.</div></div>');}
 function updCloture(){const txt=clotureText();const e=$('ccTxt');if(e)e.textContent=txt;const a=$('ccWa');if(a)a.href=waLink(S.shop.phone,txt);}
 
 // ===== Arrivage rapide (+ Stock) =====
@@ -838,7 +880,7 @@ document.addEventListener('click',e=>{
   const A={
   closeBg:()=>{if(e.target===el){if(RS&&RS.active)endRestock();else closeSheet();}},close:()=>{if(RS&&RS.active)endRestock();else closeSheet();},
   restock:startRestock,
-  print:()=>printText(el.dataset.txt),btPrint:()=>btPrint(el.dataset.txt),cloture:showCloture,ccPrint:()=>printText(clotureText()),fullRep:()=>printHTML(fullReport()),ccCopy:()=>copyText(plain(clotureText())),ccBt:()=>btPrint(clotureText()),
+  print:()=>printText(el.dataset.txt),pdfShare,pdfOpen,pdfPrint,imgShare,btPrint:()=>btPrint(el.dataset.txt),cloture:showCloture,ccPrint:()=>printText(clotureText()),fullRep:()=>printHTML(fullReport()),ccCopy:()=>copyText(plain(clotureText())),ccBt:()=>btPrint(clotureText()),
   buyMode:()=>{const c=el.dataset.m==='c';$('buyP').hidden=c;$('buyC').hidden=!c;document.querySelectorAll('[data-act=buyMode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===el.dataset.m)));updGain();},
   addAmt:()=>{readDraft();const v=num(el.dataset.v);const ex=draft.lines.find(l=>!l.pid&&l.name==='Divers'&&l.price===v);if(ex)ex.qty=q2(ex.qty+1);else draft.lines.push({pid:null,name:'Divers',unit:'pièce',qty:1,price:v});render();toast('+ '+F(v));},prImgDel:()=>{PIMG='';updImgBox();},rsEnd:endRestock,
   rsAdd:()=>{const i=$('rsN');if(i)i.value=String(q2(num(i.value)+num(el.dataset.n)));},
@@ -941,5 +983,5 @@ document.addEventListener('submit',e=>{e.preventDefault();
   if(e.target.id==='fShop'){Object.assign(S.shop,{name:val('sName').trim()||S.shop.name,owner:val('sOwner').trim(),phone:val('sPhone').trim(),address:val('sAddr').trim(),footer:val('sFoot').trim()});save();render();toast('Boutique enregistrée');}});
 S=load();render();
 </script>
-</body>
-</html>
+
+</body></html>
