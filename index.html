@@ -1,9 +1,4 @@
-<!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="format-detection" content="telephone=no">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <script>(function(){if(!document.querySelector('meta[name="viewport"]')){var m=document.createElement('meta');m.name='viewport';m.content='width=device-width, initial-scale=1, viewport-fit=cover';(document.head||document.documentElement).appendChild(m);}})();</script>
 <title>Carnet Boutique</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -45,6 +40,7 @@ header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background
 .qb span{font-weight:600;font-size:12.5px;color:var(--ink)}
 .chk{display:flex;flex-direction:row;align-items:center;gap:10px;font-size:15px;color:var(--ink);font-weight:600}
 .chk input{width:22px;height:22px;flex:none}
+.sync{font-size:12.5px;font-weight:700;padding:5px 8px;border-radius:99px;white-space:nowrap;background:var(--accent-soft);color:var(--accent)}.sync.err{background:var(--danger-soft);color:var(--danger)}.sync.wait{background:var(--card);color:var(--muted);border:1px solid var(--line)}
 .chip.lang{background:var(--card);color:var(--ink);border:1px solid var(--line)}
 .chip.bad{background:var(--danger-soft);color:var(--danger)}
 h2{font-family:var(--display);font-weight:800;font-size:24px;margin:18px 0 10px;text-wrap:balance}
@@ -174,25 +170,17 @@ html.big body{zoom:1.15}
 @media (max-width:360px){.grid3{grid-template-columns:1fr 1fr}}
 @media (prefers-reduced-motion:no-preference){.sheet{animation:up .18s ease-out}@keyframes up{from{transform:translateY(30px);opacity:.6}}}
 </style>
-<style>
-html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-body{margin:0}
-[hidden]{display:none!important}
-img{max-width:100%}
-</style>
-</head>
-<body>
 
 <div id="app"></div>
 <div id="sheetRoot"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="var s=document.createElement('script');s.src='https://unpkg.com/@supabase/supabase-js@2';document.head.appendChild(s)"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js" onerror="var s=document.createElement('script');s.src='https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js';document.head.appendChild(s)"></script>
 <script>
 // ===== Langue : français par défaut, bouton Wolof =====
 try{if(localStorage.getItem('carnetBoutique.big')==='1')document.documentElement.classList.add('big');}catch(e){}
 var LANG=(function(){try{return localStorage.getItem('carnetBoutique.lang')==='wo'?'wo':'fr';}catch(e){return 'fr';}})();
-const WO={"Préparation du PDF…":"PDF bi mu ngi waaj…","PDF prêt":"PDF bi pare na","📤 Envoyer / Enregistrer le PDF":"📤 Yónnee / Denc PDF bi","👁 Ouvrir le PDF":"👁 Ubbi PDF bi","🖨 Imprimer":"🖨 Imprime","« Envoyer » ouvre le menu du téléphone : choisissez WhatsApp, ou « Enregistrer dans Fichiers ».":"« Yónnee » dina ubbi menu bu telefon bi : tannal WhatsApp, walla « Enregistrer dans Fichiers ».","« Imprimer / PDF » prépare un fichier PDF que vous pouvez envoyer sur WhatsApp ou enregistrer.":"« Imprime / PDF » dina waajal PDF bu nga mën a yónnee ci WhatsApp walla denc ko.","PDF impossible sans internet : connectez-vous une fois":"PDF du mën te internet : laal internet benn yoon","PDF impossible : réessayez":"PDF bi mënul : jéemaatal","Préparation…":"Mu ngi waaj…","Aperçu":"Xool ko bala","Vérifiez, puis choisissez comment l'envoyer.":"Seetal, ba noppi tànn naka ngay ko yónnee.","📄 Envoyer en PDF":"📄 Yónnee ci PDF","🖼 Envoyer en image":"🖼 Yónnee ci nataal","Le menu du téléphone s'ouvre : choisissez WhatsApp, ou « Enregistrer dans Fichiers » / « Enregistrer l'image ».":"Menu bu telefon bi dina ubbiku : tànnal WhatsApp, walla « Enregistrer dans Fichiers » / « Enregistrer l'image ».","Envoi impossible ici : ouvrez l'app depuis son icône":"Yónnee du mën fii : ubbil app bi ak icône bi","Attendez un instant puis réessayez":"Xaaral tuuti te jéemaatal","PDF impossible ici : ouvrez l'app depuis son icône":"PDF du mën fii : ubbil app bi ak icône bi",
+const WO={"Voix":"Baat","Annoncer le total à voix haute":"Wax total bi ci kaw","Le téléphone dit le total, l'argent reçu et la monnaie à rendre (en français).":"Telefon bi dina wax total bi, xaalis bi nga jot ak li ngay delloo (ci farañse).","🔊 Tester la voix":"🔊 Jéem baat bi","Préparation du PDF…":"PDF bi mu ngi waaj…","PDF prêt":"PDF bi pare na","📤 Envoyer / Enregistrer le PDF":"📤 Yónnee / Denc PDF bi","👁 Ouvrir le PDF":"👁 Ubbi PDF bi","🖨 Imprimer":"🖨 Imprime","« Envoyer » ouvre le menu du téléphone : choisissez WhatsApp, ou « Enregistrer dans Fichiers ».":"« Yónnee » dina ubbi menu bu telefon bi : tannal WhatsApp, walla « Enregistrer dans Fichiers ».","« Imprimer / PDF » prépare un fichier PDF que vous pouvez envoyer sur WhatsApp ou enregistrer.":"« Imprime / PDF » dina waajal PDF bu nga mën a yónnee ci WhatsApp walla denc ko.","PDF impossible sans internet : connectez-vous une fois":"PDF du mën te internet : laal internet benn yoon","PDF impossible : réessayez":"PDF bi mënul : jéemaatal","Préparation…":"Mu ngi waaj…","Aperçu":"Xool ko bala","Vérifiez, puis choisissez comment l'envoyer.":"Seetal, ba noppi tànn naka ngay ko yónnee.","📄 Envoyer en PDF":"📄 Yónnee ci PDF","🖼 Envoyer en image":"🖼 Yónnee ci nataal","Le menu du téléphone s'ouvre : choisissez WhatsApp, ou « Enregistrer dans Fichiers » / « Enregistrer l'image ».":"Menu bu telefon bi dina ubbiku : tànnal WhatsApp, walla « Enregistrer dans Fichiers » / « Enregistrer l'image ».","Envoi impossible ici : ouvrez l'app depuis son icône":"Yónnee du mën fii : ubbil app bi ak icône bi","Attendez un instant puis réessayez":"Xaaral tuuti te jéemaatal","PDF impossible ici : ouvrez l'app depuis son icône":"PDF du mën fii : ubbil app bi ak icône bi",
 "Accueil":"Kër","Vendre":"Jaay","Clients":"Kiliyaan","Plus":"Yeneen",
 "Abonnement expiré":"Abonnement bi jeex na","Essai gratuit":"Jéem","Essai":"Jéem",
 "Votre abonnement est terminé.":"Sa abonnement jeex na.","Entrer un code":"Dugal code",
@@ -317,6 +305,20 @@ const WO_RX=[
 [/^(\d+) article\(s\) périmé\(s\)$/,"$1 marsandiis jeex nañu"],[/^(\d+) article\(s\) bientôt périmé\(s\)$/,"$1 marsandiis dinañu jeex"],[/^Attention : (.+) est périmé$/,"Moytul : $1 jeex na"],[/^Dernière sauvegarde il y a (\d+) jours\.$/,"Sauvegarde bu mujj : am na $1 fan."],[/^Dernière sauvegarde : (.+)$/,"Sauvegarde bu mujj : $1"],[/^Ou paquets \/ cartons reçus \(× (\d+)\)$/,"Walla paket / kartoŋ yi agsi (× $1)"],
 [/^Encaisser (.+) · reste (.+)$/,"Jot $1 · des na $2"],[/^Encaisser (.+)$/,"Jot $1"],[/^Enregistrer le crédit · (.+)$/,"Denc bor bi · $1"],[/^Il reste seulement (.+)$/,"Des na rekk $1"],[/^Stock fini : (.+)\. Ajoutez du stock \(\+ Stock\)$/,"Stock bi jeex na : $1. Yokkal stock (+ Stock)"],[/^Ex : (.*)$/,"Misaal : $1"],[/^tout : (.*)$/,"lépp : $1"]
 ];
+Object.assign(WO,{"Se connecter":"Dugg","Créer un compte":"Sos kont","Créer mon compte":"Sos sama kont","Numéro de téléphone":"Nimero telefon","Mot de passe":"Baatu jàll","Répéter le mot de passe":"Bindaat baatu jàll bi","6 caractères minimum":"6 araf lu néew",
+"Notez bien votre mot de passe : il faudra le même sur un nouveau téléphone.":"Bindal bu baax sa baatu jàll : dinga ko soxla ci telefon bu bees.",
+"Connectez-vous : vos ventes, crédits et stock sont sauvegardés en ligne, même si vous changez de téléphone.":"Duggal : sa jaay, sa bor ak sa stock dinañu des ci internet, su nga soppee telefon sax.",
+"Numéro ou mot de passe faux":"Nimero bi walla baatu jàll bi baaxul","Ce numéro a déjà un compte : appuyez sur « Se connecter »":"Nimero bii am na kont ba noppi : bësal « Dugg »",
+"Les deux mots de passe ne sont pas pareils":"Ñaari baatu jàll yi yemuñu","Le mot de passe doit avoir au moins 6 caractères":"Baatu jàll bi war na am 6 araf lu néew",
+"Numéro de téléphone invalide":"Nimero bi baaxul","Pas de connexion internet : réessayez":"Amul internet : jéemaatal","Connexion…":"Mangi dugg…","Chargement…":"Mangi yebbi…",
+"Compte en ligne":"Kont ci internet","Sauvegardé en ligne":"Denc nañu ko ci internet","Envoi en cours…":"Mangi yónnee…","Pas encore envoyé : vérifiez internet":"Yónneegul : seetal internet",
+"Se déconnecter":"Génn","Changer le mot de passe":"Soppi baatu jàll","Nouveau mot de passe":"Baatu jàll bu bees","Mot de passe changé":"Soppi nañu baatu jàll bi",
+"Pas encore sauvegardé en ligne : connectez-vous à internet avant de vous déconnecter.":"Dencagul ci internet : laal internet bala ngay génn.",
+"Se déconnecter ? Pour revenir il faudra le numéro et le mot de passe.":"Génn ? Ngir dellusi, dinga soxla nimero bi ak baatu jàll bi.","Oui, se déconnecter":"Waaw, génn",
+"Vos données sont sauvegardées en ligne toutes seules. Vous pouvez aussi garder une copie ici :":"Sa données yi dinañu denc ci internet seen bopp. Mën nga itam denc benn copie fii :",
+"Utilisez l'app sur un seul téléphone à la fois.":"Jëfandikool app bi ci benn telefon rekk ci benn yoon.","Données mises à jour":"Données yi yeesal nañu",
+"Compte créé mais pas encore actif. Contactez Seck Tech.":"Sos nañu kont bi waaye doxagul. Jokkool ak Seck Tech."});
+WO_RX.push([/^Connecté : (.+)$/,"Dugg nga : $1"]);
 const WO_SUB=[[/ · Client comptant$/," · Kiliyaan bu fey cash"],[/ · Sans nom$/," · Amul tur"],[/ · Espèces$/," · Cash"],[/ · Crédit$/," · Bor"],
 [/ · promis le /g," · dige na fey ci "],[/ · payé /g," · fey na "],[/article\(s\)/g,"marsandiis"],[/ · hors stock/g," · bu nekkul ci stock"],[/ · exp\. /g," · jeex ci "],[/^pas de numéro/,"amul nimero"]];
 function trWo(s){if(Object.prototype.hasOwnProperty.call(WO,s))return WO[s];
@@ -367,12 +369,73 @@ function nowStamp(){const d=new Date();return todayISO()+'T'+pad(d.getHours())+'
 
 // ===== Données =====
 const KEY=TEST?'carnetBoutique.test':'carnetBoutique.v1';
+// ===== Sauvegarde en ligne (Supabase) =====
+const SUPA_URL='https://cmwsypqsehhuzkgylhrx.supabase.co';
+const SUPA_KEY='sb_publishable_MUQvVLiAC3D4YEZQdFZEIg_7qFhb_9g';
+const MAIL_DOM='@carnetboutique.app';
+let SB=null,USER=null,BOOTING=true,AUTH_MODE='login',syncSt='',pushing=false,pushT=null,retryT=null;
+const DIRTY=KEY+'.dirty';
+const isDirty=()=>{try{return localStorage.getItem(DIRTY)==='1';}catch(e){return false;}};
+const setDirty=v=>{try{v?localStorage.setItem(DIRTY,'1'):localStorage.removeItem(DIRTY);}catch(e){}};
+function phoneDigits(p){let d=String(p||'').replace(/\D/g,'');if(d.startsWith('00'))d=d.slice(2);if(d.length===9)d='221'+d;return d;}
+const userPhone=()=>USER&&USER.email?USER.email.split('@')[0].replace(/^221(\d\d)(\d{3})(\d\d)(\d\d)$/,'$1 $2 $3 $4'):'';
+function writeLocal(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Enregistrement impossible sur ce téléphone');}}
+function setSync(st){syncSt=st;const e=$('syncDot');if(e){e.className='sync '+st;e.textContent=st==='ok'?'☁ ✓':st==='err'?'☁ !':'☁ …';}const t=$('syncTxt');if(t)t.textContent=syncLabel();}
+function syncLabel(){return syncSt==='ok'?'Sauvegardé en ligne':syncSt==='err'?'Pas encore envoyé : vérifiez internet':'Envoi en cours…';}
+function schedulePush(){if(!SB||!USER)return;clearTimeout(pushT);setSync('wait');pushT=setTimeout(push,1500);}
+async function push(){if(!SB||!USER||!S||pushing)return;if(!isDirty()){setSync('ok');return;}pushing=true;const at=S.savedAt||0;
+  try{const {error}=await SB.from('boutiques').upsert({user_id:USER.id,phone:USER.email.split('@')[0],shop_name:(S.shop&&S.shop.name)||'',shop_id:(S.lic&&S.lic.id)||'',saved_at:at,data:S,updated_at:new Date().toISOString()});
+    if(error)throw error;if((S.savedAt||0)===at)setDirty(false);setSync('ok');}
+  catch(e){setSync('err');clearTimeout(retryT);retryT=setTimeout(push,20000);}
+  finally{pushing=false;if(isDirty()&&syncSt==='ok')schedulePush();}}
+async function cloudCheck(){if(!SB||!USER)return 'skip';
+  const r=await SB.from('boutiques').select('saved_at').eq('user_id',USER.id).maybeSingle();if(r.error)throw r.error;
+  if(!r.data){if(S){S.uid=USER.id;setDirty(true);await push();}return 'empty';}
+  const cAt=Number(r.data.saved_at)||0,lAt=(S&&S.savedAt)||0;
+  if(!S||S.uid!==USER.id||cAt>lAt){const d=await SB.from('boutiques').select('data').eq('user_id',USER.id).single();if(d.error)throw d.error;
+    S=migrate(d.data.data);S.uid=USER.id;writeLocal();setDirty(false);setSync('ok');return 'down';}
+  if(lAt>cAt){S.uid=USER.id;setDirty(true);await push();return 'up';}
+  setDirty(false);setSync('ok');return 'same';}
+async function afterLogin(){const old=load();S=old&&old.uid&&old.uid!==USER.id?null:old;if(!S){try{localStorage.removeItem(KEY);}catch(e){}}
+  try{await cloudCheck();}catch(e){setSync('err');}tab='home';render();}
+async function boot(){const t0=Date.now();while(!window.supabase&&Date.now()-t0<7000)await new Promise(r=>setTimeout(r,150));
+  if(!window.supabase){BOOTING=false;S=load();render();return;}
+  SB=window.supabase.createClient(SUPA_URL,SUPA_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
+  try{const {data}=await SB.auth.getSession();USER=data&&data.session?data.session.user:null;}catch(e){USER=null;}
+  BOOTING=false;if(!USER){S=null;render();return;}
+  S=load();if(S&&S.uid&&S.uid!==USER.id)S=null;render();
+  try{const r=await cloudCheck();if(r==='down')render();}catch(e){setSync('err');}
+  document.addEventListener('visibilitychange',async()=>{if(document.visibilityState!=='visible'||!USER||isDirty())return;try{if(await cloudCheck()==='down'){render();toast('Données mises à jour');}}catch(e){}});
+  window.addEventListener('online',()=>{if(isDirty())push();});}
+function vLogin(){const su=AUTH_MODE==='signup';
+  return '<div class="wrap"><div class="hero-on"><div class="seg" style="max-width:260px;margin-bottom:22px"><button class="segb" type="button" data-lang="fr" aria-pressed="'+(LANG!=='wo')+'">Français</button><button class="segb" type="button" data-lang="wo" aria-pressed="'+(LANG==='wo')+'">Wolof</button></div><h1>Carnet Boutique</h1><p>Connectez-vous : vos ventes, crédits et stock sont sauvegardés en ligne, même si vous changez de téléphone.</p></div>'+
+  '<form id="fAuth" class="card stack big-form"><div class="seg"><button class="segb" type="button" data-act="authMode" data-m="login" aria-pressed="'+!su+'">Se connecter</button><button class="segb" type="button" data-act="authMode" data-m="signup" aria-pressed="'+su+'">Créer un compte</button></div>'+
+  '<label class="f">Numéro de téléphone<input id="auPhone" inputmode="tel" autocomplete="username" placeholder="77 000 00 00"></label>'+
+  '<label class="f">Mot de passe<input id="auPass" type="password" autocomplete="'+(su?'new-password':'current-password')+'" placeholder="6 caractères minimum"></label>'+
+  (su?'<label class="f">Répéter le mot de passe<input id="auPass2" type="password" autocomplete="new-password"></label><div class="small">Notez bien votre mot de passe : il faudra le même sur un nouveau téléphone.</div>':'')+
+  '<button class="btn enc" type="submit" id="auBtn">'+(su?'Créer mon compte':'Se connecter')+'</button><div class="lw" id="auMsg"></div></form></div>';}
+async function doAuth(){const ph=phoneDigits(val('auPhone')),pw=val('auPass'),su=AUTH_MODE==='signup';const m=$('auMsg');const say=t=>{if(m)m.textContent=t;};
+  if(ph.length<9)return say('Numéro de téléphone invalide');if(pw.length<6)return say('Le mot de passe doit avoir au moins 6 caractères');
+  if(su&&pw!==val('auPass2'))return say('Les deux mots de passe ne sont pas pareils');
+  const b=$('auBtn');if(b){b.disabled=true;b.textContent='Connexion…';}say('');const email=ph+MAIL_DOM;
+  try{const r=su?await SB.auth.signUp({email,password:pw}):await SB.auth.signInWithPassword({email,password:pw});
+    if(r.error)throw r.error;if(!r.data.session){say('Compte créé mais pas encore actif. Contactez Seck Tech.');if(b){b.disabled=false;b.textContent=su?'Créer mon compte':'Se connecter';}return;}
+    USER=r.data.session.user;await afterLogin();}
+  catch(e){const msg=String(e&&e.message||'');
+    say(/already|registered|exists/i.test(msg)?'Ce numéro a déjà un compte : appuyez sur « Se connecter »':/invalid login|credentials/i.test(msg)?'Numéro ou mot de passe faux':/fetch|network|Failed/i.test(msg)?'Pas de connexion internet : réessayez':msg);
+    if(b){b.disabled=false;b.textContent=su?'Créer mon compte':'Se connecter';}}}
+async function doLogout(){if(isDirty()){await push();if(isDirty())return toast('Pas encore sauvegardé en ligne : connectez-vous à internet avant de vous déconnecter.');}
+  try{await SB.auth.signOut();}catch(e){}USER=null;S=null;draft=null;unlocked=false;try{localStorage.removeItem(KEY);}catch(e){}setDirty(false);closeSheet();tab='home';render();}
+function accountCard(){if(!SB||!USER)return '';
+  return '<h3>Compte en ligne</h3><div class="card stack"><div class="kv"><span>Connecté : '+esc(userPhone())+'</span></div><div class="small"><b id="syncTxt">'+syncLabel()+'</b></div><div class="small">Utilisez l\'app sur un seul téléphone à la fois.</div>'+
+  '<label class="f">Nouveau mot de passe<input id="newPass" type="password" autocomplete="new-password" placeholder="6 caractères minimum"></label><button class="btn line" data-act="chgPass">Changer le mot de passe</button>'+
+  '<div id="outZone"><button class="btn danger" data-act="askLogout">Se déconnecter</button></div></div>';}
 const UNITS=['pièce','sac','barre','kg','litre','m²','m','paquet','carton','boîte','tonne','pot','sachet','bidon','bouteille','douzaine'];
 const DEP_CATS=['Loyer','Électricité (Woyofal)','Eau','Transport','Salaire','Repas','Téléphone / crédit','Autre'];
 const MODES=['Espèces','Wave','Orange Money'];
 let S=null, tab='home', draft=null, pdraft=null, toastT=null, unlocked=false, pinThen=null, period='day', stockQ='';
 function load(){try{const r=localStorage.getItem(KEY);if(r)return migrate(JSON.parse(r));}catch(e){}return null;}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){toast('Enregistrement impossible sur ce téléphone');}}
+function save(){S.savedAt=Date.now();if(USER)S.uid=USER.id;writeLocal();setDirty(true);schedulePush();}
 function migrate(o){if(!o)return o;
   ['products','clients','sales','payments','quotes','suppliers','purchases','supPayments','expenses'].forEach(k=>{if(!Array.isArray(o[k]))o[k]=[];});
   if(typeof o.seq!=='object'||o.seq===null)o.seq={sale:Number(o.seq)||o.sales.length,quote:0};
@@ -382,6 +445,17 @@ const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 function newShopId(){const a=new Uint32Array(5);try{crypto.getRandomValues(a);}catch(e){a.forEach((_,i)=>a[i]=Math.random()*1e9);}return Array.from(a,x=>A31[x%31]).join('');}
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const F=n=>Math.round(n||0).toLocaleString('fr-FR').replace(/ | /g,' ')+' F';
+// ===== Voix : annonce du total =====
+function voiceOn(){try{return localStorage.getItem('carnetBoutique.voice')!=='0';}catch(e){return true;}}
+function frVoice(){try{const v=speechSynthesis.getVoices();return v.find(x=>/^fr[-_]FR/i.test(x.lang))||v.find(x=>/^fr/i.test(x.lang))||null;}catch(e){return null;}}
+try{if(window.speechSynthesis)speechSynthesis.getVoices();}catch(e){}
+function fv(n){return Math.round(n||0)+' francs';}
+function speak(t,force){if(!force&&!voiceOn())return;try{if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='fr-FR';const v=frVoice();if(v)u.voice=v;u.rate=0.95;speechSynthesis.speak(u);}catch(e){}}
+function sayChange(s){const t=['Total : '+fv(s.total)+'.'];
+  if(s.paid<s.total){if(s.paid>0)t.push('Payé : '+fv(s.paid)+'.');t.push('Reste en crédit : '+fv(s.total-s.paid)+'.');}
+  else if(s.change>0){t.push('Reçu : '+fv(s.given)+'.');t.push('Monnaie à rendre : '+fv(s.change)+'.');}
+  else t.push('Montant exact.');
+  speak(t.join(' '));}
 const num=v=>{const n=parseFloat(String(v??'').replace(/\s/g,'').replace(',','.'));return isNaN(n)?0:n;};
 const q2=n=>Math.round(n*100)/100;
 const $=id=>document.getElementById(id);
@@ -420,7 +494,7 @@ async function sendBackup(){const txt=JSON.stringify(S);const name='carnet-bouti
 function a2hsCard(onb){if(IS_APP)return '';if(!onb&&S&&S.a2hs)return '';
   const steps=IS_IOS?'<span>1. Ouvrez ce lien dans <b data-notr>Safari</b>.</span><span>2. Appuyez sur le bouton <b data-notr>Partager</b> (carré avec une flèche).</span><span>3. Choisissez <b data-notr>« Sur l\'écran d\'accueil »</b>, puis <b data-notr>Ajouter</b>.</span><span>4. Ouvrez toujours l\'app avec cette icône.</span>':'<span>1. Ouvrez ce lien dans <b data-notr>Chrome</b>.</span><span>2. Appuyez sur le menu <b data-notr>⋮</b> en haut.</span><span>3. Choisissez <b data-notr>« Ajouter à l\'écran d\'accueil »</b>.</span><span>4. Ouvrez toujours l\'app avec cette icône.</span>';
   return '<div class="banner warn" style="margin-top:14px"><b>'+(onb?'Avant de commencer : mettez l\'app sur l\'écran d\'accueil':'Mettez l\'app sur l\'écran d\'accueil')+'</b>'+steps+
-  (IS_IOS?'<span class="small" style="color:inherit">Sur iPhone, c\'est important : sinon les données peuvent être effacées. Les données de Safari ne passent pas dans l\'icône : si vous avez déjà commencé, faites une sauvegarde ici et restaurez-la dans l\'icône.</span>':'')+
+  (IS_IOS&&!USER?'<span class="small" style="color:inherit">Sur iPhone, c\'est important : sinon les données peuvent être effacées. Les données de Safari ne passent pas dans l\'icône : si vous avez déjà commencé, faites une sauvegarde ici et restaurez-la dans l\'icône.</span>':'')+
   (onb?'':'<button class="btn sm line" data-act="a2hsDone">C\'est fait</button>')+'</div>';}
 const isLate=c=>balance(c.id)>0&&c.due&&c.due<effToday();
 function findOrCreateClient(name,phone){name=name.trim();if(!name)return null;
@@ -446,11 +520,11 @@ const TABS=[['home','Accueil'],['sell','Vendre'],['debt','Clients'],['stock','St
 const MORE_TABS=['more','quotes','sup','exp','report','set'];
 
 // ===== Rendu principal =====
-function render(){const app=$('app');if(!S){app.innerHTML=onboard();return;}
+function render(){const app=$('app');if(BOOTING){app.innerHTML='<div class="wrap"><div class="empty" style="padding-top:40vh">Chargement…</div></div>';return;}if(SB&&!USER){app.innerHTML=vLogin();return;}if(!S){app.innerHTML=onboard();return;}
   const L=licState();
   const chip=L.st==='blocked'?'<button class="chip bad" data-act="goSub">Abonnement expiré</button>':L.st==='grace'?'<button class="chip bad" data-act="goSub">Expiré · '+(GRACE_DAYS+L.left)+' j</button>':L.st==='warn'?'<button class="chip warn" data-act="goSub">'+(L.trial?'Essai':'Abonné')+' · '+L.left+' j</button>':'<button class="chip ok" data-act="goSub">'+(L.trial?'Essai gratuit':'Abonné')+'</button>';
   const V={home:vHome,sell:vSell,debt:vDebt,stock:vStock,more:vMore,quotes:vQuotes,sup:vSup,exp:vExp,report:vReport,set:vSet}[tab]||vHome;
-  app.innerHTML='<div class="wrap"><header class="top"><div class="brand">'+esc(S.shop.name)+'</div><div style="display:flex;gap:6px;align-items:center">'+langBtn()+chip+'</div></header>'+banner(L)+V()+'</div>'+
+  app.innerHTML='<div class="wrap"><header class="top"><div class="brand">'+esc(S.shop.name)+'</div><div style="display:flex;gap:6px;align-items:center">'+(USER?'<span id="syncDot" class="sync '+syncSt+'">'+(syncSt==='ok'?'☁ ✓':syncSt==='err'?'☁ !':'☁ …')+'</span>':'')+langBtn()+chip+'</div></header>'+banner(L)+V()+'</div>'+
   '<nav class="tabs">'+TABS.map(([k,l])=>'<button data-tab="'+k+'" aria-current="'+(tab===k||(k==='more'&&MORE_TABS.includes(tab)))+'">'+svg(k)+l+'</button>').join('')+'</nav>';
   if(tab==='sell')renderResults();}
 function banner(L){
@@ -461,9 +535,9 @@ function banner(L){
 function onboard(){return '<div class="wrap"><div class="hero-on"><div class="seg" style="max-width:260px;margin-bottom:22px"><button class="segb" type="button" data-lang="fr" aria-pressed="'+(LANG!=='wo')+'">Français</button><button class="segb" type="button" data-lang="wo" aria-pressed="'+(LANG==='wo')+'">Wolof</button></div><h1>Carnet Boutique</h1><p>Ventes, factures WhatsApp, crédits des clients, stock avec code-barres, fournisseurs et dépenses. '+TRIAL_DAYS+' jours d\'essai gratuit.</p></div>'+(IS_APP?'':a2hsCard(true)+'<div style="height:14px"></div>')+
  '<form id="fOn" class="card stack"><label class="f">Nom de la boutique<input id="onName" placeholder="Ex : Boutique Touba"></label>'+
  '<label class="f">Nom du propriétaire<input id="onOwner" placeholder="Ex : Moustapha Gningue"></label>'+
- '<label class="f">Téléphone<input id="onPhone" inputmode="tel" placeholder="77 000 00 00"></label>'+
+ '<label class="f">Téléphone<input id="onPhone" inputmode="tel" placeholder="77 000 00 00" value="'+esc(userPhone())+'"></label>'+
  '<label class="f">Adresse / Ville<input id="onAddr" placeholder="Ex : Darou Khoudoss, Touba"></label>'+
- '<button class="btn" type="submit">Commencer l\'essai gratuit</button>'+(TEST?'':'<button class="btn line" type="button" data-act="demo">Essayer avec un exemple</button>')+'</form>'+
+ '<button class="btn" type="submit">Commencer l\'essai gratuit</button>'+(TEST||SB?'':'<button class="btn line" type="button" data-act="demo">Essayer avec un exemple</button>')+'</form>'+
  (TEST?'<h3>Test : choisir la situation</h3><div class="card stack">'+[['10','Essai en cours (10 jours)'],['2','Bientôt fini (2 jours)'],['-1','Expiré hier (grâce)'],['-5','Bloqué (expiré il y a 5 jours)']].map(([d,l])=>'<button class="btn line" type="button" data-act="demoT" data-d="'+d+'">'+l+'</button>').join('')+'</div>':'')+
  '<h3>Vous avez une sauvegarde ?</h3><div class="card stack"><label class="f">Fichier de sauvegarde<input type="file" id="onFile" accept=".json,application/json,text/plain"></label></div></div>';}
 
@@ -475,7 +549,7 @@ function vHome(){const t=effToday();const today=S.sales.filter(s=>s.date.slice(0
   const late=S.clients.filter(isLate);const low=S.products.filter(p=>p.qty<=p.min);const exOut=S.products.filter(p=>expState(p)==='out').length,exSoon=S.products.filter(p=>expState(p)==='soon').length;
   const recent=S.sales.slice().reverse().slice(0,6);
   const ba=bkAge(),hasData=S.sales.length+S.products.length+S.clients.length>0;
-  const bkB=hasData&&ba>=7&&S.bkSnooze!==t?'<div class="banner warn" style="margin-bottom:12px"><b>Faites une sauvegarde</b><span>'+(S.lastBk?'Dernière sauvegarde il y a '+ba+' jours.':'Vous n\'avez encore jamais fait de sauvegarde.')+'</span><span class="small" style="color:inherit">Envoyez-la sur WhatsApp : si vous perdez le téléphone, vous ne perdez pas vos ventes et vos crédits.</span><div class="grid2"><button class="btn sm" style="width:100%" data-act="bkNow">Sauvegarder</button><button class="btn sm line" style="width:100%" data-act="bkLater">Demain</button></div></div>':'';
+  const bkB=!USER&&hasData&&ba>=7&&S.bkSnooze!==t?'<div class="banner warn" style="margin-bottom:12px"><b>Faites une sauvegarde</b><span>'+(S.lastBk?'Dernière sauvegarde il y a '+ba+' jours.':'Vous n\'avez encore jamais fait de sauvegarde.')+'</span><span class="small" style="color:inherit">Envoyez-la sur WhatsApp : si vous perdez le téléphone, vous ne perdez pas vos ventes et vos crédits.</span><div class="grid2"><button class="btn sm" style="width:100%" data-act="bkNow">Sauvegarder</button><button class="btn sm line" style="width:100%" data-act="bkLater">Demain</button></div></div>':'';
   return bkB+'<h2>Aujourd\'hui</h2><div class="stats"><div class="stat"><div class="k">Ventes</div><div class="v">'+F(ventes)+'</div><div class="small">'+today.length+' facture(s)</div></div>'+
   '<div class="stat cash"><div class="k">Encaissé</div><div class="v">'+F(enc)+'</div><div class="small">ventes + crédits payés</div></div>'+
   '<button class="stat debt" style="text-align:left;cursor:pointer" data-tab="debt"><div class="k">Crédits dehors</div><div class="v">'+F(dettes)+'</div><div class="small">'+(late.length?'<span style="color:var(--danger);font-weight:700">'+late.length+' en retard</span>':S.clients.filter(c=>balance(c.id)>0).length+' client(s)')+'</div></button>'+
@@ -606,8 +680,9 @@ function vSet(){const L=licState();const msg='Bonjour '+SUPPORT_NAME+', je veux 
   '<label class="f">Code reçu<input id="code" autocapitalize="characters" placeholder="Ex : 261105-ABC123"></label><button class="btn" data-act="code">Activer le code</button>'+(S.lic.code?'<div class="small">Dernier code : '+esc(S.lic.code)+'</div>':'')+'</div>'+
   '<h3>Ma boutique</h3><form id="fShop" class="card stack"><label class="f">Nom<input id="sName" value="'+esc(S.shop.name)+'"></label><label class="f">Propriétaire<input id="sOwner" value="'+esc(S.shop.owner)+'"></label><div class="grid2"><label class="f">Téléphone<input id="sPhone" value="'+esc(S.shop.phone)+'"></label><label class="f">Adresse<input id="sAddr" value="'+esc(S.shop.address)+'"></label></div><label class="f">Message en bas des factures<input id="sFoot" value="'+esc(S.shop.footer||'')+'" placeholder="Merci pour votre confiance !"></label><button class="btn line" type="submit">Enregistrer</button></form>'+
   '<h3>Affichage</h3><div class="card stack"><label class="chk"><input type="checkbox" data-big'+(document.documentElement.classList.contains('big')?' checked':'')+'>Lettres plus grandes</label><div class="small">Pour ceux qui voient mal : tout devient plus grand sur ce téléphone.</div></div>'+
+  '<h3>Voix</h3><div class="card stack"><label class="chk"><input type="checkbox" data-voice'+(voiceOn()?' checked':'')+'>Annoncer le total à voix haute</label><div class="small">Le téléphone dit le total, l\'argent reçu et la monnaie à rendre (en français).</div><button class="btn line" data-act="testVoice">🔊 Tester la voix</button></div>'+
   '<h3>Code patron</h3><div class="card stack"><div class="small">Si un vendeur utilise le téléphone : avec un code, il peut vendre et encaisser, mais pas voir le bénéfice, changer les prix, le stock ou les réglages.</div><label class="f">'+(S.pin?'Nouveau code (vide = enlever le code)':'Code à 4 chiffres')+'<input id="newPin" type="password" inputmode="numeric" maxlength="6"></label><button class="btn line" data-act="setPin">'+(S.pin?'Changer / enlever le code':'Mettre le code')+'</button></div>'+
-  '<h3>Sauvegarde</h3><div class="card stack"><div class="small">Les données restent dans ce téléphone. Faites une sauvegarde chaque semaine et envoyez-la-vous sur WhatsApp : si vous changez de téléphone, vous la remettez ici.</div>'+
+  accountCard()+'<h3>Sauvegarde</h3><div class="card stack"><div class="small">'+(USER?'Vos données sont sauvegardées en ligne toutes seules. Vous pouvez aussi garder une copie ici :':'Les données restent dans ce téléphone. Faites une sauvegarde chaque semaine et envoyez-la-vous sur WhatsApp : si vous changez de téléphone, vous la remettez ici.')+'</div>'+
   '<div class="small"><b>Dernière sauvegarde : '+(S.lastBk?fdate(S.lastBk):'jamais')+'</b></div><button class="btn" data-act="bkNow">Envoyer la sauvegarde (WhatsApp…)</button><button class="btn ghost" data-act="exp">Télécharger la sauvegarde</button><button class="btn line" data-act="copyBk">Copier la sauvegarde (texte)</button>'+
   '<label class="f">Restaurer depuis un fichier<input type="file" id="bkFile" accept=".json,application/json,text/plain"></label>'+
   '<label class="f">…ou coller le texte de sauvegarde<textarea id="bkText" rows="3"></textarea></label><button class="btn line" data-act="restoreTxt">Restaurer le texte collé</button></div>'+
@@ -945,7 +1020,7 @@ document.addEventListener('click',e=>{
     d.lines.forEach(l=>{if(l.pid){const p=prod(l.pid);if(p){p.qty=q2(p.qty-l.qty);l.cost=p.cost||0;}}});
     S.seq.sale++;const s={id:uid(),no:S.seq.sale,date:nowStamp(),client:c?c.name:'',clientId:c?c.id:null,phone:d.phone.trim(),lines:d.lines.map(l=>({pid:l.pid,name:l.name,unit:l.unit,qty:l.qty,price:l.price,cost:l.cost||0})),total,paid,given:cc.given,change:cc.change,mode:paid===0?'Crédit':d.mode==='Crédit'?'Espèces':d.mode,due:paid<total?d.due:''};
     if(d.fromQuote){const q=S.quotes.find(x=>x.id===d.fromQuote);if(q)q.status='vendu';}
-    S.sales.push(s);save();draft=null;tab='home';render();showDoc('s',s);},
+    S.sales.push(s);save();sayChange(s);draft=null;tab='home';render();showDoc('s',s);},
   saveQuote:()=>{readDraft();if(!w())return;const d=draft;d.lines=d.lines.filter(l=>l.qty>0);if(!d.lines.length)return toast('Panier vide');
     S.seq.quote++;const q={id:uid(),no:S.seq.quote,date:nowStamp(),client:d.client.trim(),phone:d.phone.trim(),lines:d.lines.map(l=>({...l})),total:d.lines.reduce((s,l)=>s+l.qty*l.price,0),status:'ouvert'};
     S.quotes.push(q);save();draft=null;tab='quotes';render();showDoc('q',q);},
@@ -954,7 +1029,8 @@ document.addEventListener('click',e=>{
   delQ:()=>{S.quotes=S.quotes.filter(q=>q.id!==id);save();closeSheet();render();},
   askCancel:()=>needPin(()=>{const s=S.sales.find(x=>x.id===id);showDoc('s',s);$('delZone').innerHTML='<div class="banner bad"><span>Annuler la facture N° '+no4(s.no)+' ? Les articles reviennent dans le stock.</span><div class="grid2"><button class="btn danger" data-act="cancelSale" data-id="'+id+'">Oui, annuler</button><button class="btn line" data-act="close">Non</button></div></div>';}),
   cancelSale:()=>{const s=S.sales.find(x=>x.id===id);s.lines.forEach(l=>{const p=l.pid&&prod(l.pid);if(p)p.qty=q2(p.qty+l.qty);});S.sales=S.sales.filter(x=>x.id!==id);save();closeSheet();render();toast('Facture annulée');},
-  pay:()=>{if(!w())return;const amt=num(val('pAmt'));if(amt<=0)return toast('Montant invalide');S.payments.push({id:uid(),clientId:id,date:nowStamp(),amount:amt,mode:val('pMode')});const c=client(id);if(balance(id)<=0)c.due='';save();render();showClient(id);toast('Paiement de '+F(amt)+' enregistré');},
+  testVoice:()=>{speak('Total : 15000 francs. Reçu : 20000 francs. Monnaie à rendre : 5000 francs.',true);},
+  pay:()=>{if(!w())return;const amt=num(val('pAmt'));if(amt<=0)return toast('Montant invalide');S.payments.push({id:uid(),clientId:id,date:nowStamp(),amount:amt,mode:val('pMode')});const c=client(id);const rb=balance(id);if(rb<=0)c.due='';save();speak('Paiement reçu : '+fv(amt)+'. '+(rb>0?'Il reste à payer : '+fv(rb)+'.':'Le crédit est soldé.'));render();showClient(id);toast('Paiement de '+F(amt)+' enregistré');},
   cSave:()=>{const c=client(id);c.phone=val('cPhone').trim();c.due=val('cDue');save();render();showClient(id);toast('Enregistré');},
   saveOld:()=>{if(!w())return;const n=val('oName').trim();if(!n)return toast('Écrivez le nom');const c=findOrCreateClient(n,val('oPhone'));c.opening=(c.opening||0)+num(val('oAmt'));if(val('oDue'))c.due=val('oDue');save();closeSheet();render();toast('Client enregistré');},
   saveProd:()=>{if(!w())return;const f=readProdForm();if(!f.name.trim())return toast('Écrivez le nom');if(num(f.price)<=0)return toast('Mettez le prix de vente');
@@ -981,7 +1057,7 @@ document.addEventListener('click',e=>{
   code:()=>{const err=applyCode(val('code'));if(err)return toast(err);render();toast('Abonnement activé jusqu\'au '+fdate(licEnd()));},
   exp:()=>{const blob=new Blob([JSON.stringify(S)],{type:'application/json'});const u=URL.createObjectURL(blob);const l=document.createElement('a');l.href=u;l.download='carnet-boutique-'+todayISO()+'.json';document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);markBk();render();toast('Si rien ne se télécharge, utilisez « Copier »');},
   copyBk:()=>{copyText(JSON.stringify(S));markBk();},
-  bkNow:()=>{sendBackup();},bkLater:()=>{S.bkSnooze=effToday();save();render();},a2hsDone:()=>{S.a2hs=true;save();render();},
+  authMode:()=>{AUTH_MODE=el.dataset.m;render();},askLogout:()=>{$('outZone').innerHTML='<div class="banner bad"><span>Se déconnecter ? Pour revenir il faudra le numéro et le mot de passe.</span><div class="grid2"><button class="btn danger" data-act="logout">Oui, se déconnecter</button><button class="btn line" data-act="noOut">Non</button></div></div>';},logout:doLogout,noOut:()=>render(),chgPass:async()=>{const p=val('newPass');if(p.length<6)return toast('Le mot de passe doit avoir au moins 6 caractères');const r=await SB.auth.updateUser({password:p});if(r.error)return toast('Pas de connexion internet : réessayez');$('newPass').value='';toast('Mot de passe changé');},bkNow:()=>{sendBackup();},bkLater:()=>{S.bkSnooze=effToday();save();render();},a2hsDone:()=>{S.a2hs=true;save();render();},
   restoreTxt:()=>{const t=val('bkText').trim();if(!t)return toast('Collez d\'abord le texte');restore(t);}
   };
   if(A[a])A[a]();
@@ -1000,6 +1076,7 @@ document.addEventListener('keydown',e=>{if(e.key!=='Enter')return;const t=e.targ
 document.addEventListener('toggle',e=>{if(e.target&&e.target.id==='cliBox'&&draft)draft.showCli=e.target.open;},true);
 document.addEventListener('change',e=>{const t=e.target;
   if(t.hasAttribute&&t.hasAttribute('data-big')){document.documentElement.classList.toggle('big',t.checked);try{localStorage.setItem('carnetBoutique.big',t.checked?'1':'0');}catch(x){}}
+  if(t.hasAttribute&&t.hasAttribute('data-voice')){try{localStorage.setItem('carnetBoutique.voice',t.checked?'1':'0');}catch(x){}if(t.checked)speak('Voix activée.',true);}
   if(t.id==='rsAuto'&&RS)RS.auto=t.checked;
   if(t.id==='prUnit')updGain();
   if(t.id==='prPhoto'&&t.files[0]){shrink(t.files[0],260).then(d=>{PIMG=d;updImgBox();}).catch(()=>toast('Photo illisible, réessayez'));}
@@ -1007,9 +1084,10 @@ document.addEventListener('change',e=>{const t=e.target;
   if(t.id==='puPick'){const p=prod(t.value);const c=$('puCost');if(p&&c)c.value=p.cost||'';}
   if(t.id==='bkFile'||t.id==='onFile'){const f=t.files[0];if(!f)return;const r=new FileReader();r.onload=()=>restore(r.result);r.readAsText(f);}});
 document.addEventListener('submit',e=>{e.preventDefault();
+  if(e.target.id==='fAuth'){doAuth();return;}
   if(e.target.id==='fOn'){if(!val('onName').trim())return toast('Écrivez le nom de la boutique');start({name:val('onName').trim(),owner:val('onOwner').trim(),phone:val('onPhone').trim(),address:val('onAddr').trim(),footer:''},false);}
   if(e.target.id==='fShop'){Object.assign(S.shop,{name:val('sName').trim()||S.shop.name,owner:val('sOwner').trim(),phone:val('sPhone').trim(),address:val('sAddr').trim(),footer:val('sFoot').trim()});save();render();toast('Boutique enregistrée');}});
-S=load();render();
+render();boot();
 </script>
-</body>
-</html>
+
+</body></html>
