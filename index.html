@@ -180,7 +180,7 @@ html.big body{zoom:1.15}
 // ===== Langue : français par défaut, bouton Wolof =====
 try{if(localStorage.getItem('carnetBoutique.big')==='1')document.documentElement.classList.add('big');}catch(e){}
 var LANG=(function(){try{return localStorage.getItem('carnetBoutique.lang')==='wo'?'wo':'fr';}catch(e){return 'fr';}})();
-const WO={"Voix":"Baat","Annoncer le total à voix haute":"Wax total bi ci kaw","Le téléphone dit le total, l'argent reçu et la monnaie à rendre (en français).":"Telefon bi dina wax total bi, xaalis bi nga jot ak li ngay delloo (ci farañse).","🔊 Tester la voix":"🔊 Jéem baat bi","Préparation du PDF…":"PDF bi mu ngi waaj…","PDF prêt":"PDF bi pare na","📤 Envoyer / Enregistrer le PDF":"📤 Yónnee / Denc PDF bi","👁 Ouvrir le PDF":"👁 Ubbi PDF bi","🖨 Imprimer":"🖨 Imprime","« Envoyer » ouvre le menu du téléphone : choisissez WhatsApp, ou « Enregistrer dans Fichiers ».":"« Yónnee » dina ubbi menu bu telefon bi : tannal WhatsApp, walla « Enregistrer dans Fichiers ».","« Imprimer / PDF » prépare un fichier PDF que vous pouvez envoyer sur WhatsApp ou enregistrer.":"« Imprime / PDF » dina waajal PDF bu nga mën a yónnee ci WhatsApp walla denc ko.","PDF impossible sans internet : connectez-vous une fois":"PDF du mën te internet : laal internet benn yoon","PDF impossible : réessayez":"PDF bi mënul : jéemaatal","Préparation…":"Mu ngi waaj…","Aperçu":"Xool ko bala","Vérifiez, puis choisissez comment l'envoyer.":"Seetal, ba noppi tànn naka ngay ko yónnee.","📄 Envoyer en PDF":"📄 Yónnee ci PDF","🖼 Envoyer en image":"🖼 Yónnee ci nataal","Le menu du téléphone s'ouvre : choisissez WhatsApp, ou « Enregistrer dans Fichiers » / « Enregistrer l'image ».":"Menu bu telefon bi dina ubbiku : tànnal WhatsApp, walla « Enregistrer dans Fichiers » / « Enregistrer l'image ».","Envoi impossible ici : ouvrez l'app depuis son icône":"Yónnee du mën fii : ubbil app bi ak icône bi","Attendez un instant puis réessayez":"Xaaral tuuti te jéemaatal","PDF impossible ici : ouvrez l'app depuis son icône":"PDF du mën fii : ubbil app bi ak icône bi",
+const WO={"Vérifier mon abonnement":"Seet sama abonnement","Après le paiement, appuyez sur « Vérifier mon abonnement ».":"Su nga feyee, bësal « Seet sama abonnement ».","Paiement pas encore enregistré. Réessayez plus tard.":"Fey bi bindeeguñu ko ba leegi. Jéemaatal ci kanam.","Payer l'abonnement":"Fey abonnement bi","Voix":"Baat","Annoncer le total à voix haute":"Wax total bi ci kaw","Le téléphone dit le total, l'argent reçu et la monnaie à rendre (en français).":"Telefon bi dina wax total bi, xaalis bi nga jot ak li ngay delloo (ci farañse).","🔊 Tester la voix":"🔊 Jéem baat bi","Préparation du PDF…":"PDF bi mu ngi waaj…","PDF prêt":"PDF bi pare na","📤 Envoyer / Enregistrer le PDF":"📤 Yónnee / Denc PDF bi","👁 Ouvrir le PDF":"👁 Ubbi PDF bi","🖨 Imprimer":"🖨 Imprime","« Envoyer » ouvre le menu du téléphone : choisissez WhatsApp, ou « Enregistrer dans Fichiers ».":"« Yónnee » dina ubbi menu bu telefon bi : tannal WhatsApp, walla « Enregistrer dans Fichiers ».","« Imprimer / PDF » prépare un fichier PDF que vous pouvez envoyer sur WhatsApp ou enregistrer.":"« Imprime / PDF » dina waajal PDF bu nga mën a yónnee ci WhatsApp walla denc ko.","PDF impossible sans internet : connectez-vous une fois":"PDF du mën te internet : laal internet benn yoon","PDF impossible : réessayez":"PDF bi mënul : jéemaatal","Préparation…":"Mu ngi waaj…","Aperçu":"Xool ko bala","Vérifiez, puis choisissez comment l'envoyer.":"Seetal, ba noppi tànn naka ngay ko yónnee.","📄 Envoyer en PDF":"📄 Yónnee ci PDF","🖼 Envoyer en image":"🖼 Yónnee ci nataal","Le menu du téléphone s'ouvre : choisissez WhatsApp, ou « Enregistrer dans Fichiers » / « Enregistrer l'image ».":"Menu bu telefon bi dina ubbiku : tànnal WhatsApp, walla « Enregistrer dans Fichiers » / « Enregistrer l'image ».","Envoi impossible ici : ouvrez l'app depuis son icône":"Yónnee du mën fii : ubbil app bi ak icône bi","Attendez un instant puis réessayez":"Xaaral tuuti te jéemaatal","PDF impossible ici : ouvrez l'app depuis son icône":"PDF du mën fii : ubbil app bi ak icône bi",
 "Accueil":"Kër","Vendre":"Jaay","Clients":"Kiliyaan","Plus":"Yeneen",
 "Abonnement expiré":"Abonnement bi jeex na","Essai gratuit":"Jéem","Essai":"Jéem",
 "Votre abonnement est terminé.":"Sa abonnement jeex na.","Entrer un code":"Dugal code",
@@ -191,7 +191,7 @@ const WO={"Voix":"Baat","Annoncer le total à voix haute":"Wax total bi ci kaw",
 "Crédits dehors":"Bor yi ci biti","À racheter":"Lu war a jënd","article(s) presque fini(s)":"marsandiis yu bëgg a jeex",
 "Nouvelle vente":"Jaay bu bees","Dernières factures":"Faktiir yu mujj yi","Client comptant":"Kiliyaan bu fey cash",
 "Aucune facture. Appuyez sur « Nouvelle vente » pour faire la première.":"Amul faktiir. Bësal « Jaay bu bees » ngir def bu jëkk bi.",
-"L'abonnement est terminé. Entrez un nouveau code dans Plus › Réglages pour vendre.":"Abonnement bi jeex na. Dugal code bu bees ci Yeneen › Réglages ngir jaay.",
+"L'abonnement est terminé. Payez l'abonnement (Plus › Réglages) pour vendre.":"Abonnement bi jeex na. Feyal abonnement bi (Yeneen › Réglages) ngir jaay.",
 "Vente du devis":"Jaay devis bi","Détail":"Detaay","Article hors stock":"Marsandiis bu nekkul ci stock","Quantité":"Lim","Prix (F)":"Njëg (F)",
 "Ajouter":"Yokk","+ Article hors stock":"+ Marsandiis bu nekkul ci stock","Scannez ou cherchez les articles vendus.":"Scanner walla seet marsandiis yi nga jaay.",
 "Client et paiement":"Kiliyaan ak pey","Client":"Kiliyaan","Espèces":"Cash","Crédit":"Bor","Le client donne (F)":"Li kiliyaan bi jox (F)",
@@ -260,7 +260,7 @@ const WO={"Voix":"Baat","Annoncer le total à voix haute":"Wax total bi ci kaw",
 "Article enregistré":"Denc nañu marsandiis bi","Quantité invalide":"Lim bi baaxul","Mettez le prix d'achat":"Dugal njëgu jënd bi","Achat enregistré, stock mis à jour":"Denc nañu jënd bi, stock bi yeesal na",
 "Paiement enregistré":"Denc nañu pey bi","Dépense enregistrée":"Denc nañu depaans bi","Si rien ne se télécharge, utilisez « Copier »":"Su dara yebbiwul, jëfandikool « Copier »",
 "Collez d'abord le texte":"Jëkkal coller bind bi","Écrivez le nom de la boutique":"Bindal turu bitig bi","Boutique enregistrée":"Denc nañu bitig bi",
-"Enregistrement impossible sur ce téléphone":"Mënuñu denc dara ci telefon bii","Abonnement terminé : entrez un nouveau code dans Plus › Réglages":"Abonnement bi jeex na : dugal code bu bees ci Yeneen › Réglages",
+"Enregistrement impossible sur ce téléphone":"Mënuñu denc dara ci telefon bii","Abonnement terminé : payez l'abonnement dans Plus › Réglages":"Abonnement bi jeex na : feyal abonnement bi ci Yeneen › Réglages",
 "Le code doit avoir 12 caractères (ex : 261105-ABC123).":"Code bi war na am 12 araf (misaal : 261105-ABC123).","Choisissez un article":"Tànnal marsandiis","Code faux":"Code bi baaxul",
 "Mettez le montant":"Dugal xaalis bi","Mettez le prix de vente":"Dugal njëgu jaay bi","Montant invalide":"Xaalis bi baaxul","Panier vide":"Panier bi amul dara",
 "Supprimer ce devis ?":"Far devis bii ?","Oui":"Waaw","Non":"Déedéet","Oui, annuler":"Waaw, neenal","Supprimer cet article ?":"Far marsandiis bii ?","Oui, supprimer":"Waaw, far",
@@ -281,7 +281,7 @@ const MODE_WO={"Espèces":"Cash","Crédit":"Bor"};
 const mw=m=>MODE_WO[m]||m;
 const WO_RX=[
 [/^Expiré · (-?\d+) j$/,"Jeex na · $1 fan"],[/^Essai · (-?\d+) j$/,"Jéem · $1 fan"],[/^Abonné · (-?\d+) j$/,"Abonné · $1 fan"],
-[/^Vous pouvez voir vos données et faire une sauvegarde, mais plus enregistrer\. Payez (.+?)\/mois à (.+?) pour recevoir un nouveau code\.$/,"Mën ngaa xool sa données yi te def sauvegarde, waaye doo mën a denc dara. Fey $1 ci weer ci $2 ngir jot code bu bees."],
+[/^Vous pouvez voir vos données et faire une sauvegarde, mais plus enregistrer\. Payez (.+?)\/mois à (.+?) pour continuer\.$/,"Mën ngaa xool sa données yi te def sauvegarde, waaye doo mën a denc dara. Fey $1 ci weer ci $2 ngir wéy."],
 [/^Abonnement expiré le (.+)\.$/,"Abonnement bi jeex na ci $1."],
 [/^L'app sera bloquée dans (-?\d+) jour\(s\)\. Payez pour continuer\.$/,"App bi dina tëju ci $1 fan. Feyal ngir wéy."],
 [/^Votre essai gratuit se termine le$/,"Sa jéem bu amul pey dina jeex ci"],[/^Votre abonnement se termine le$/,"Sa abonnement dina jeex ci"],
@@ -291,7 +291,7 @@ const WO_RX=[
 [/^(\d+) en attente$/,"$1 ñuy xaar"],[/^(\d+) ligne\(s\) sans prix d'achat$/,"$1 marsandiis amul njëgu jënd"],
 [/^Je dois (.+)$/,"Sama bor : $1"],[/^Ce mois : (.+)$/,"Weer wii : $1"],
 [/^Essai gratuit jusqu'au (.+)$/,"Jéem bu amul pey ba $1"],[/^Abonné jusqu'au (.+)$/,"Abonné ba $1"],[/^Expiré le (.+)$/,"Jeex na ci $1"],
-[/^Prix : (.+?) par mois, par Wave ou Orange Money au (.+?)\. Après le paiement vous recevez un code\.$/,"Njëg : $1 ci weer, ak Wave walla Orange Money ci $2. Bu nga feyee, dinga jot code."],
+[/^Prix : (.+?) par mois, par Wave ou Orange Money au (.+?)\. Après le paiement, l'abonnement s'active tout seul\.$/,"Njëg : $1 ci weer, ak Wave walla Orange Money ci $2. Bu nga feyee, abonnement bi dina dox boppam."],
 [/^Contacter (.+) sur WhatsApp$/,"Jokkoo ak $1 ci WhatsApp"],[/^Dernier code : (.+)$/,"Code bu mujj : $1"],
 [/^Facture N° (.+)$/,"Faktiir N° $1"],[/^Achat · (.+)$/,"Jënd · $1"],
 [/^Paiement (Espèces|Wave|Orange Money)$/,(x,m)=>"Pey · "+mw(m)],
@@ -353,11 +353,9 @@ function applyCfg(c){if(!c||typeof c!=='object')return;const d=x=>String(x||'').
 try{applyCfg(JSON.parse(localStorage.getItem('carnetBoutique.cfg')||'null'));}catch(e){}
 try{fetch('config.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():null).then(c=>{if(!c)return;applyCfg(c);try{localStorage.setItem('carnetBoutique.cfg',JSON.stringify(c));}catch(e){}try{if(S)render();}catch(e){}}).catch(()=>{});}catch(e){}
 const TRIAL_DAYS=14, GRACE_DAYS=3;
-// ===== Clé des codes (doit être identique dans le panneau Abonnements) =====
-const SECRET='SeckTech|CarnetBoutique|v1|9fQ2-Tb7x-Kz41';
+// ===== Abonnement : vérifié en ligne (table abonnements, modifiable seulement par Seck Tech) =====
 const A31='ABCDEFGHJKMNPQRSTUVWXYZ23456789';
 function h32(s,seed){let h=seed>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0;}h^=h>>>13;h=Math.imul(h,0x5bd1e995)>>>0;h^=h>>>15;return h>>>0;}
-function sig(id,exp){const s=SECRET+'|'+id+'|'+exp;let a=h32(s,2166136261),b=h32(s+'#',0x9747b28c),o='';for(let i=0;i<3;i++){o+=A31[a%31];a=Math.floor(a/31);}for(let i=0;i<3;i++){o+=A31[b%31];b=Math.floor(b/31);}return o;}
 
 // ===== Dates =====
 const pad=n=>String(n).padStart(2,'0');
@@ -397,15 +395,15 @@ async function cloudCheck(){if(!SB||!USER)return 'skip';
   if(lAt>cAt){S.uid=USER.id;setDirty(true);await push();return 'up';}
   setDirty(false);setSync('ok');return 'same';}
 async function afterLogin(){const old=load();S=old&&old.uid&&old.uid!==USER.id?null:old;if(!S){try{localStorage.removeItem(KEY);}catch(e){}}
-  try{await cloudCheck();}catch(e){setSync('err');}tab='home';render();}
+  try{await cloudCheck();}catch(e){setSync('err');}try{await fetchLic();}catch(e){}tab='home';render();}
 async function boot(){const t0=Date.now();while(!window.supabase&&Date.now()-t0<7000)await new Promise(r=>setTimeout(r,150));
   if(!window.supabase){BOOTING=false;S=load();render();return;}
   SB=window.supabase.createClient(SUPA_URL,SUPA_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
   try{const {data}=await SB.auth.getSession();USER=data&&data.session?data.session.user:null;}catch(e){USER=null;}
   BOOTING=false;if(!USER){S=null;render();return;}
   S=load();if(S&&S.uid&&S.uid!==USER.id)S=null;render();
-  try{const r=await cloudCheck();if(r==='down')render();}catch(e){setSync('err');}
-  document.addEventListener('visibilitychange',async()=>{if(document.visibilityState!=='visible'||!USER||isDirty())return;try{if(await cloudCheck()==='down'){render();toast('Données mises à jour');}}catch(e){}});
+  let ch=false;try{const r=await cloudCheck();if(r==='down')ch=true;}catch(e){setSync('err');}try{if(await fetchLic())ch=true;}catch(e){}if(ch)render();
+  document.addEventListener('visibilitychange',async()=>{if(document.visibilityState!=='visible'||!USER||isDirty())return;let ch=false;try{if(await cloudCheck()==='down'){ch=true;toast('Données mises à jour');}}catch(e){}try{if(await fetchLic())ch=true;}catch(e){}if(ch)render();});
   window.addEventListener('online',()=>{if(isDirty())push();});}
 function vLogin(){const su=AUTH_MODE==='signup';
   return '<div class="wrap"><div class="hero-on"><div class="seg" style="max-width:260px;margin-bottom:22px"><button class="segb" type="button" data-lang="fr" aria-pressed="'+(LANG!=='wo')+'">Français</button><button class="segb" type="button" data-lang="wo" aria-pressed="'+(LANG==='wo')+'">Wolof</button></div><h1>Carnet Boutique</h1><p>Connectez-vous : vos ventes, crédits et stock sont sauvegardés en ligne, même si vous changez de téléphone.</p></div>'+
@@ -467,14 +465,13 @@ function licEnd(){const a=S.lic.trialEnd||'',b=S.lic.exp||'';return a>b?a:b;}
 function licState(){const t=effToday(),end=licEnd(),left=diffDays(t,end);const trial=!S.lic.exp||S.lic.trialEnd>=S.lic.exp;
   if(left>=0)return{st:left<=5?'warn':'ok',left,end,trial};if(-left<=GRACE_DAYS)return{st:'grace',left,end,trial};return{st:'blocked',left,end,trial};}
 const canWrite=()=>licState().st!=='blocked';
-function w(){if(canWrite())return true;toast('Abonnement terminé : entrez un nouveau code dans Plus › Réglages');return false;}
-function applyCode(raw){const c=String(raw).toUpperCase().replace(/[^A-Z0-9]/g,'');
-  if(c.length!==12)return 'Le code doit avoir 12 caractères (ex : 261105-ABC123).';
-  const exp=c.slice(0,6),s=c.slice(6);
-  if(!/^\d{6}$/.test(exp)||sig(S.lic.id,exp)!==s)return "Code non valable pour cette boutique. Vérifiez l'ID "+S.lic.id+'.';
-  const iso='20'+exp.slice(0,2)+'-'+exp.slice(2,4)+'-'+exp.slice(4,6);
-  if(iso<effToday())return 'Ce code est déjà expiré ('+fdate(iso)+').';
-  if(!S.lic.exp||iso>S.lic.exp)S.lic.exp=iso;S.lic.code=c.slice(0,6)+'-'+c.slice(6);save();return '';}
+function w(){if(canWrite())return true;toast('Abonnement terminé : payez l\'abonnement dans Plus › Réglages');return false;}
+async function fetchLic(){if(!SB||!USER||!S)return false;
+  const r=await SB.from('abonnements').select('trial_end,paid_until').eq('user_id',USER.id).maybeSingle();
+  if(r.error)throw r.error;if(!r.data)return false;
+  const te=r.data.trial_end||'',pu=r.data.paid_until||'';
+  if(S.lic.trialEnd===te&&(S.lic.exp||'')===pu&&S.lic.srv)return false;
+  S.lic.trialEnd=te;S.lic.exp=pu;S.lic.srv=1;writeLocal();return true;}
 
 // ===== Calculs =====
 const prod=id=>S.products.find(p=>p.id===id);
@@ -528,7 +525,7 @@ function render(){const app=$('app');if(BOOTING){app.innerHTML='<div class="wrap
   '<nav class="tabs">'+TABS.map(([k,l])=>'<button data-tab="'+k+'" aria-current="'+(tab===k||(k==='more'&&MORE_TABS.includes(tab)))+'">'+svg(k)+l+'</button>').join('')+'</nav>';
   if(tab==='sell')renderResults();}
 function banner(L){
-  if(L.st==='blocked')return '<div class="banner bad"><b>Votre abonnement est terminé.</b><span>Vous pouvez voir vos données et faire une sauvegarde, mais plus enregistrer. Payez '+PRIX_MOIS+'/mois à '+SUPPORT_NAME+' pour recevoir un nouveau code.</span><button class="btn sm danger" data-act="goSub">Entrer un code</button></div>';
+  if(L.st==='blocked')return '<div class="banner bad"><b>Votre abonnement est terminé.</b><span>Vous pouvez voir vos données et faire une sauvegarde, mais plus enregistrer. Payez '+PRIX_MOIS+'/mois à '+SUPPORT_NAME+' pour continuer.</span><button class="btn sm danger" data-act="goSub">Payer l\'abonnement</button></div>';
   if(L.st==='grace')return '<div class="banner bad"><b>Abonnement expiré le '+fdate(L.end)+'.</b><span>L\'app sera bloquée dans '+(GRACE_DAYS+L.left)+' jour(s). Payez pour continuer.</span></div>';
   if(L.st==='warn')return '<div class="banner warn"><span>'+(L.trial?'Votre essai gratuit':'Votre abonnement')+' se termine le <b>'+fdate(L.end)+'</b> ('+L.left+' j).</span></div>';
   return '';}
@@ -565,7 +562,7 @@ function newDraft(){return{lines:[],client:'',phone:'',mode:'Espèces',paid:'',d
 function lineHTML(l,i){return '<div class="li"><div class="li-name">'+esc(l.name)+'<small>'+esc(l.unit||'pièce')+(l.pid?(prod(l.pid)?' · stock '+q2(prod(l.pid).qty):''):' · hors stock')+'</small><small class="lw" id="lw'+i+'">'+lineWarn(l)+'</small></div><button class="x" aria-label="Retirer" data-act="delLine" data-i="'+i+'">×</button>'+
   '<div class="li-ctrl"><div class="step"><button data-act="qm" data-i="'+i+'" aria-label="Moins">−</button><input class="li-qty" data-i="'+i+'" inputmode="decimal" value="'+q2(l.qty)+'" aria-label="Quantité"><button data-act="qp" data-i="'+i+'" aria-label="Plus">+</button></div>'+
   '<input class="li-price" data-i="'+i+'" inputmode="numeric" value="'+l.price+'" aria-label="Prix unitaire"><span class="li-amt" id="la'+i+'">'+F(l.qty*l.price)+'</span></div></div>';}
-function vSell(){if(!canWrite())return '<h2>Nouvelle vente</h2><div class="card empty">L\'abonnement est terminé. Entrez un nouveau code dans Plus › Réglages pour vendre.</div>';
+function vSell(){if(!canWrite())return '<h2>Nouvelle vente</h2><div class="card empty">L\'abonnement est terminé. Payez l\'abonnement (Plus › Réglages) pour vendre.</div>';
   if(!draft)draft=newDraft();const d=draft;const total=d.lines.reduce((a,l)=>a+l.qty*l.price,0);
   const favs=S.products.filter(p=>p.fav);
   return '<h2>'+(d.fromQuote?'Vente du devis':'Nouvelle vente')+'</h2>'+'<h3 style="margin-top:4px">Vente rapide</h3><div class="quick" style="margin-bottom:12px">'+favs.map(p=>'<button class="qb" data-act="addProd" data-id="'+p.id+'">'+thumb(p)+esc(p.name)+'<span>'+F(priceOf(p))+'</span></button>').join('')+
@@ -676,9 +673,9 @@ function vReport(){const t=effToday();const from=period==='day'?t:period==='week
 function vSet(){const L=licState();const msg='Bonjour '+SUPPORT_NAME+', je veux payer l\'abonnement Carnet Boutique.\nBoutique : '+S.shop.name+'\nID boutique : '+S.lic.id;
   return '<button class="back" data-tab="more">‹ Plus</button><h2>Abonnement</h2><div class="card stack"><div class="small" style="text-align:center">ID de votre boutique — à donner pour payer</div><div class="idbox">'+S.lic.id+'</div>'+
   '<div style="text-align:center">'+(L.st==='blocked'||L.st==='grace'?'<span class="chip bad">Expiré le '+fdate(L.end)+'</span>':'<span class="chip '+(L.st==='warn'?'warn':'ok')+'">'+(L.trial?'Essai gratuit':'Abonné')+' jusqu\'au '+fdate(L.end)+'</span>')+'</div>'+
-  '<div class="small">Prix : '+PRIX_MOIS+' par mois, par Wave ou Orange Money au '+(PAY_NUM||SUPPORT_WA.replace(/^221(\d\d)(\d{3})(\d\d)(\d\d)$/,'+221 $1 $2 $3 $4'))+'. Après le paiement vous recevez un code.</div>'+
+  '<div class="small">Prix : '+PRIX_MOIS+' par mois, par Wave ou Orange Money au '+(PAY_NUM||SUPPORT_WA.replace(/^221(\d\d)(\d{3})(\d\d)(\d\d)$/,'+221 $1 $2 $3 $4'))+'. Après le paiement, l\'abonnement s\'active tout seul.</div>'+
   '<a class="btn ghost" target="_blank" rel="noopener" href="'+waLink(SUPPORT_WA,msg)+'">Contacter '+SUPPORT_NAME+' sur WhatsApp</a>'+
-  '<label class="f">Code reçu<input id="code" autocapitalize="characters" placeholder="Ex : 261105-ABC123"></label><button class="btn" data-act="code">Activer le code</button>'+(S.lic.code?'<div class="small">Dernier code : '+esc(S.lic.code)+'</div>':'')+'</div>'+
+  '<button class="btn" data-act="chkSub">Vérifier mon abonnement</button><div class="small">Après le paiement, appuyez sur « Vérifier mon abonnement ».</div></div>'+
   '<h3>Ma boutique</h3><form id="fShop" class="card stack"><label class="f">Nom<input id="sName" value="'+esc(S.shop.name)+'"></label><label class="f">Propriétaire<input id="sOwner" value="'+esc(S.shop.owner)+'"></label><div class="grid2"><label class="f">Téléphone<input id="sPhone" value="'+esc(S.shop.phone)+'"></label><label class="f">Adresse<input id="sAddr" value="'+esc(S.shop.address)+'"></label></div><label class="f">Message en bas des factures<input id="sFoot" value="'+esc(S.shop.footer||'')+'" placeholder="Merci pour votre confiance !"></label><button class="btn line" type="submit">Enregistrer</button></form>'+
   '<h3>Affichage</h3><div class="card stack"><label class="chk"><input type="checkbox" data-big'+(document.documentElement.classList.contains('big')?' checked':'')+'>Lettres plus grandes</label><div class="small">Pour ceux qui voient mal : tout devient plus grand sur ce téléphone.</div></div>'+
   '<h3>Voix</h3><div class="card stack"><label class="chk"><input type="checkbox" data-voice'+(voiceOn()?' checked':'')+'>Annoncer le total à voix haute</label><div class="small">Le téléphone dit le total, l\'argent reçu et la monnaie à rendre (en français).</div><button class="btn line" data-act="testVoice">🔊 Tester la voix</button></div>'+
@@ -1056,7 +1053,9 @@ document.addEventListener('click',e=>{
   supPay:()=>{if(!w())return;const amt=num(val('spAmt'));if(amt<=0)return toast('Montant invalide');S.supPayments.push({id:uid(),supplierId:id,date:nowStamp(),amount:amt,mode:val('spMode')});save();render();showSup(id);toast('Paiement enregistré');},
   saveExp:()=>{if(!w())return;const amt=num(val('eAmt'));if(amt<=0)return toast('Mettez le montant');S.expenses.push({id:uid(),date:nowStamp(),cat:val('eCat'),amount:amt,note:val('eNote').trim(),mode:val('eMode')});save();render();toast('Dépense enregistrée');},
   period:()=>{period=el.dataset.p;render();},
-  code:()=>{const err=applyCode(val('code'));if(err)return toast(err);render();toast('Abonnement activé jusqu\'au '+fdate(licEnd()));},
+  chkSub:async()=>{if(!SB||!USER)return toast('Pas de connexion internet : réessayez');el.disabled=true;
+    try{await fetchLic();render();const L=licState();toast(L.st==='blocked'||L.st==='grace'?'Paiement pas encore enregistré. Réessayez plus tard.':(L.trial?'Essai gratuit':'Abonné')+' jusqu\'au '+fdate(L.end));}
+    catch(e){el.disabled=false;toast('Pas de connexion internet : réessayez');}},
   exp:()=>{const blob=new Blob([JSON.stringify(S)],{type:'application/json'});const u=URL.createObjectURL(blob);const l=document.createElement('a');l.href=u;l.download='carnet-boutique-'+todayISO()+'.json';document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);markBk();render();toast('Si rien ne se télécharge, utilisez « Copier »');},
   copyBk:()=>{copyText(JSON.stringify(S));markBk();},
   authMode:()=>{AUTH_MODE=el.dataset.m;render();},askLogout:()=>{$('outZone').innerHTML='<div class="banner bad"><span>Se déconnecter ? Pour revenir il faudra le numéro et le mot de passe.</span><div class="grid2"><button class="btn danger" data-act="logout">Oui, se déconnecter</button><button class="btn line" data-act="noOut">Non</button></div></div>';},logout:doLogout,noOut:()=>render(),chgPass:async()=>{const p=val('newPass');if(p.length<6)return toast('Le mot de passe doit avoir au moins 6 caractères');const r=await SB.auth.updateUser({password:p});if(r.error)return toast('Pas de connexion internet : réessayez');$('newPass').value='';toast('Mot de passe changé');},bkNow:()=>{sendBackup();},bkLater:()=>{S.bkSnooze=effToday();save();render();},a2hsDone:()=>{S.a2hs=true;save();render();},
