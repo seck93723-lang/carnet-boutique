@@ -692,7 +692,7 @@ function vSet(){const L=licState();const msg='Bonjour '+SUPPORT_NAME+', je veux 
   '<div class="small">Prix : '+PRIX_MOIS+' par mois, par Wave ou Orange Money au '+(PAY_NUM||SUPPORT_WA.replace(/^221(\d\d)(\d{3})(\d\d)(\d\d)$/,'+221 $1 $2 $3 $4'))+'. Après le paiement, l\'abonnement s\'active tout seul.</div>'+
   '<a class="btn ghost" target="_blank" rel="noopener" href="'+waLink(SUPPORT_WA,msg)+'">Contacter '+SUPPORT_NAME+' sur WhatsApp</a>'+
   '<button class="btn" data-act="chkSub">Vérifier mon abonnement</button><div class="small">Après le paiement, appuyez sur « Vérifier mon abonnement ».</div></div>'+
-  paperCard()+'<h3>Ma boutique</h3><form id="fShop" class="card stack"><label class="f">Nom<input id="sName" value="'+esc(S.shop.name)+'"></label><label class="f">Propriétaire<input id="sOwner" value="'+esc(S.shop.owner)+'"></label><div class="grid2"><label class="f">Téléphone<input id="sPhone" value="'+esc(S.shop.phone)+'"></label><label class="f">Adresse<input id="sAddr" value="'+esc(S.shop.address)+'"></label></div><label class="f">Message en bas des factures<input id="sFoot" value="'+esc(S.shop.footer||'')+'" placeholder="Merci pour votre confiance !"></label><button class="btn line" type="submit">Enregistrer</button></form>'+
+  paperCard()+'<h3>Ma boutique</h3><form id="fShop" class="card stack"><label class="f">Nom<input id="sName" value="'+esc(S.shop.name)+'"></label><label class="f">Propriétaire<input id="sOwner" value="'+esc(S.shop.owner)+'"></label><div class="grid2"><label class="f">Téléphone<input id="sPhone" value="'+esc(S.shop.phone)+'"></label><label class="f">Adresse<input id="sAddr" value="'+esc(S.shop.address)+'"></label></div><label class="f">Message en bas des factures<input id="sFoot" value="'+esc(S.shop.footer||'')+'" placeholder="Merci pour votre confiance !"></label><button class="btn line" type="submit">Enregistrer</button></form>'+payQrCard()+
   '<h3>Affichage</h3><div class="card stack"><label class="chk"><input type="checkbox" data-big'+(document.documentElement.classList.contains('big')?' checked':'')+'>Lettres plus grandes</label><div class="small">Pour ceux qui voient mal : tout devient plus grand sur ce téléphone.</div></div>'+
   '<h3>Voix</h3><div class="card stack"><label class="chk"><input type="checkbox" data-voice'+(voiceOn()?' checked':'')+'>Annoncer le total à voix haute</label><div class="small">Le téléphone dit le total, l\'argent reçu et la monnaie à rendre (en français).</div><button class="btn line" data-act="testVoice">🔊 Tester la voix</button></div>'+
   '<h3>Code patron</h3><div class="card stack"><div class="small">Si un vendeur utilise le téléphone : avec un code, il peut vendre et encaisser, mais pas voir le bénéfice, changer les prix, le stock ou les réglages.</div><label class="f">'+(S.pin?'Nouveau code (vide = enlever le code)':'Code à 4 chiffres')+'<input id="newPin" type="password" inputmode="numeric" maxlength="6"></label><button class="btn line" data-act="setPin">'+(S.pin?'Changer / enlever le code':'Mettre le code')+'</button></div>'+
@@ -705,6 +705,7 @@ function showDoc(kind,s){const c=s.clientId?client(s.clientId):null;const txt=do
   openSheet((kind==='q'?'Devis':'Facture')+' N° '+no4(s.no),'<div class="receipt">'+esc(txt)+'</div><div class="stack" style="margin-top:12px">'+
   '<a class="btn" target="_blank" rel="noopener" href="'+waLink(c&&c.phone||s.phone||'',txt)+'">Envoyer sur WhatsApp</a>'+
   '<div class="grid2"><button class="btn line" data-act="print" data-txt="'+esc(txt)+'">🖨 Imprimer</button><button class="btn line" data-act="copy" data-txt="'+esc(txt)+'">Copier le texte</button></div>'+
+  '<button class="btn line" data-act="tk58" data-txt="'+esc(txt)+'">🧾 Ticket 58 mm (caisse)</button>'+
   (navigator.bluetooth?'<button class="btn line" data-act="btPrint" data-txt="'+esc(txt)+'">Imprimante Bluetooth (Android)</button>':'')+
   (kind==='q'&&s.status!=='vendu'?'<button class="btn ghost" data-act="quoteToSale" data-id="'+s.id+'">Le client achète : transformer en vente</button><div id="delZone"><button class="btn danger" data-act="askDelQ" data-id="'+s.id+'">Supprimer le devis</button></div>':'')+
   (kind==='s'?'<div id="delZone"><button class="btn danger" data-act="askCancel" data-id="'+s.id+'">Annuler cette facture (erreur)</button></div>':'')+'</div>');}
@@ -732,6 +733,7 @@ function showProd(id,pre){const base=id?prod(id):{name:'',code:'',unit:'pièce',
   '<div class="grid2"><label class="f">M\'avertir s\'il reste moins de<input id="prMin" inputmode="numeric" value="'+esc(p.min)+'"></label><label class="f">Date de péremption<input id="prExp" type="date" value="'+esc(p.exp||'')+'"></label></div>'+
   '<label class="chk"><input type="checkbox" id="prFav"'+(p.fav?' checked':'')+'>Mettre un bouton dans « Vente rapide »</label></div></details>'+
   '<button class="btn" data-act="saveProd" data-id="'+(id||'')+'">Enregistrer</button></div>'+
+  (id?'<div style="margin-top:10px"><button class="btn line" data-act="lblOpen" data-id="'+id+'">🏷 Étiquette prix (40 mm)</button></div>':'')+
   (id?'<h3>Marchandise arrivée</h3><div class="card stack"><label class="f">Pièces reçues<input id="prIn" inputmode="decimal" placeholder="Ex : 50"></label>'+(p.pack>0?'<label class="f">Ou cartons reçus (× '+p.pack+')<input id="prInPk" inputmode="numeric" placeholder="Ex : 2"></label>':'')+'<button class="btn ghost" data-act="stockIn" data-id="'+id+'">Ajouter au stock</button></div><div id="delZone" style="margin-top:14px"><button class="btn danger" data-act="askDel" data-id="'+id+'">Supprimer l\'article</button></div>':''));
   updGain();}
 function buyIsCarton(){const b=$('buyC');return b&&!b.hidden;}
@@ -890,6 +892,73 @@ async function btPrint(txt){if(!navigator.bluetooth)return toast('Bluetooth pas 
     toast('Imprimé');}catch(e){if(e&&e.name==='NotFoundError')return;BT=null;toast('Impression Bluetooth impossible : essayez « Imprimer »');}}
 
 function printHTML(html){makePdf('html',html);}
+// ===== Ticket 58 mm (caisse Android avec imprimante intégrée) — séparé du PDF =====
+let TK='';
+const isAndroid=/Android/i.test(navigator.userAgent||'');
+function ticket58(txt){TK=String(txt||'');
+  openSheet('Ticket 58 mm','<div class="receipt" style="max-width:240px;margin:0 auto;font-size:12px">'+esc(plain(TK))+payQrHTML('display:block;width:130px;margin:10px auto 0')+'</div><div class="stack" style="margin-top:12px">'+
+  '<button class="btn" data-act="tkPrint">🖨 Imprimer le ticket</button>'+
+  (isAndroid?'<button class="btn line" data-act="tkRaw">Imprimer avec l\'app RawBT</button>':'')+
+  '<div class="small">Pour la caisse Android avec imprimante intégrée (rouleau 58 mm). Si « Imprimer le ticket » ne trouve pas l\'imprimante, installez l\'app gratuite RawBT (Play Store) et utilisez le 2e bouton.</div></div>');}
+function tkPrint(){if(!TK)return;
+  const f=document.createElement('iframe');f.setAttribute('aria-hidden','true');f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';document.body.appendChild(f);
+  const d=f.contentWindow.document;d.open();
+  d.write('<!doctype html><html><head><meta charset="utf-8"><title>Ticket</title><style>@page{size:58mm auto;margin:0}html,body{margin:0;padding:0;background:#fff;color:#000}pre{width:48mm;margin:0 auto;padding:2mm 0 8mm;white-space:pre-wrap;word-break:break-word;font:bold 9pt/1.25 ui-monospace,Menlo,Consolas,monospace}</style></head><body><pre>'+esc(plain(TK))+'</pre>'+payQrHTML('display:block;width:34mm;margin:-6mm auto 8mm')+'</body></html>');
+  d.close();
+  setTimeout(()=>{try{f.contentWindow.focus();f.contentWindow.print();}catch(e){toast('Impression impossible ici : essayez RawBT');}setTimeout(()=>f.remove(),60000);},300);}
+function tkRaw(){if(!TK)return;
+  const bytes=new TextEncoder().encode('\x1B\x40'+ascii(TK)+'\n\n\n\n'+'\x1D\x56\x01');let bin='';bytes.forEach(b=>bin+=String.fromCharCode(b));
+  location.href='intent:base64,'+btoa(bin)+'#Intent;scheme=rawbt;package=ru.a402d.rawbtprinter;end;';}
+
+// ===== QR de paiement (Wave / Orange Money) sur le ticket 58 mm =====
+function payQrHTML(st){const q=S.shop&&S.shop.payQr;if(!q)return '';return '<img src="'+q+'" alt="QR paiement" style="'+st+'"><div style="text-align:center;font:bold 12px/1.3 ui-monospace,Menlo,monospace;margin-bottom:6mm">'+esc(S.shop.payQrTxt||'Scannez pour payer')+'</div>';}
+function payQrCard(){const q=S.shop&&S.shop.payQr;
+  return '<h3>QR de paiement sur le ticket</h3><div class="card stack"><div class="small">Faites une capture d\'écran de votre QR code Wave (ou Orange Money) dans l\'app Wave, puis choisissez-la ici. Il sera imprimé en bas du ticket 58 mm.</div>'+
+  (q?'<img src="'+q+'" alt="QR" style="width:140px;margin:0 auto;display:block;background:#fff;padding:6px;border-radius:8px">':'')+
+  '<label class="btn line">'+(q?'Changer le QR':'Choisir la photo du QR')+'<input type="file" id="payQrFile" accept="image/*" hidden></label>'+
+  (q?'<label class="f">Texte sous le QR<input id="payQrTxt" value="'+esc(S.shop.payQrTxt||'Scannez pour payer')+'"></label><button class="btn sm danger" data-act="payQrDel">Enlever le QR</button>':'')+'</div>';}
+function qrShrink(blob){return new Promise((ok,ko)=>{const u=URL.createObjectURL(blob);const im=new Image();
+  im.onload=()=>{const k=Math.min(1,360/Math.max(im.naturalWidth,im.naturalHeight));const c=document.createElement('canvas');c.width=Math.round(im.naturalWidth*k);c.height=Math.round(im.naturalHeight*k);
+    const g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.imageSmoothingEnabled=false;g.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);try{ok(c.toDataURL('image/png'));}catch(e){ko(e);}};
+  im.onerror=()=>{URL.revokeObjectURL(u);ko();};im.src=u;});}
+function payQrDel(){delete S.shop.payQr;delete S.shop.payQrTxt;save();render();toast('QR enlevé');}
+document.addEventListener('change',async e=>{const t=e.target;
+  if(t.id==='payQrFile'&&t.files&&t.files[0]){try{S.shop.payQr=await qrShrink(t.files[0]);save();render();toast('QR enregistré');}catch(x){toast('Photo pas lisible : réessayez');}}
+  if(t.id==='payQrTxt'){S.shop.payQrTxt=t.value.trim();save();}});
+
+// ===== Étiquettes prix 40 mm (imprimante d'étiquettes de la caisse) =====
+let LBL=null;
+function labelOpen(id){const p=prod(id);if(!p)return;LBL=p;
+  openSheet('Étiquette prix','<div id="lblPrev" style="width:160px;margin:0 auto;background:#fff;color:#000;border:1px dashed #999;border-radius:6px;padding:8px;text-align:center">'+labelInner(p,true)+'</div>'+
+  '<div class="card stack" style="margin-top:12px"><label class="f">Combien d\'étiquettes ?<input id="lblN" inputmode="numeric" value="1"></label>'+
+  '<button class="btn" data-act="lblPrint">🖨 Imprimer</button>'+(isAndroid?'<button class="btn line" data-act="lblRaw">Imprimer avec l\'app RawBT</button>':'')+
+  '<div class="small">Rouleau d\'étiquettes 40 mm de la caisse Android. Le code-barres est imprimé seulement si l\'article en a un.</div></div>');
+  if(p.code)loadBarLib().then(()=>drawBars(document.getElementById('lblPrev'))).catch(()=>{});}
+function labelInner(p){const pr=num(p.price);
+  return '<div style="font:600 10px/1.2 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc((S.shop&&S.shop.name)||'')+'</div>'+
+  '<div style="font:700 13px/1.15 system-ui,sans-serif;margin:2px 0;max-height:2.4em;overflow:hidden">'+esc(p.name)+'</div>'+
+  '<div style="font:800 20px/1.1 system-ui,sans-serif">'+(pr>0?F(pr):'—')+'</div>'+
+  (p.code?'<svg class="lblBar" data-code="'+esc(p.code)+'" width="0" height="0" style="max-width:100%;height:auto"></svg>':'');}
+let barP=null;
+function loadBarLib(){if(window.JsBarcode)return Promise.resolve();if(barP)return barP;
+  barP=new Promise((ok,ko)=>{const u=['https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js','https://unpkg.com/jsbarcode@3.11.6/dist/JsBarcode.all.min.js'];let i=0;
+    const nx=()=>{if(i>=u.length){barP=null;return ko();}const sc=document.createElement('script');sc.src=u[i++];sc.onload=()=>ok();sc.onerror=()=>{sc.remove();nx();};document.head.appendChild(sc);};nx();});return barP;}
+function drawBars(root){if(!root||!window.JsBarcode)return;root.querySelectorAll('svg.lblBar').forEach(sv=>{const c=sv.getAttribute('data-code');
+  const fmt=/^\d{13}$/.test(c)?'EAN13':/^\d{8}$/.test(c)?'EAN8':'CODE128';
+  try{JsBarcode(sv,c,{format:fmt,height:28,width:1.4,fontSize:11,margin:0,displayValue:true});}catch(e){try{JsBarcode(sv,c,{format:'CODE128',height:28,width:1.2,fontSize:11,margin:0});}catch(x){sv.remove();}}});}
+async function labelPrint(){const p=LBL;if(!p)return;const n=Math.max(1,Math.min(100,Math.round(num(val('lblN'))||1)));
+  if(p.code){try{await loadBarLib();}catch(e){}}
+  const f=document.createElement('iframe');f.setAttribute('aria-hidden','true');f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0';document.body.appendChild(f);
+  const d=f.contentWindow.document;d.open();
+  d.write('<!doctype html><html><head><meta charset="utf-8"><title>Etiquette</title><style>@page{size:40mm 30mm;margin:0}html,body{margin:0;padding:0;background:#fff;color:#000}.l{width:40mm;height:30mm;box-sizing:border-box;padding:1.5mm 2mm;text-align:center;overflow:hidden;page-break-after:always;break-after:page}.l:last-child{page-break-after:auto;break-after:auto}.l svg{max-height:11mm}</style></head><body>'+
+    Array.from({length:n},()=>'<div class="l">'+labelInner(p)+'</div>').join('')+'</body></html>');
+  d.close();drawBars(d.body);
+  setTimeout(()=>{try{f.contentWindow.focus();f.contentWindow.print();}catch(e){toast('Impression impossible ici : essayez RawBT');}setTimeout(()=>f.remove(),60000);},300);}
+function labelRaw(){const p=LBL;if(!p)return;const n=Math.max(1,Math.min(100,Math.round(num(val('lblN'))||1)));const pr=num(p.price);
+  const one=ascii((S.shop&&S.shop.name)||'')+'\n'+'\x1B\x45\x01'+ascii(p.name)+'\x1B\x45\x00\n'+'\x1D\x21\x11'+ascii(pr>0?F(pr):'-')+'\x1D\x21\x00\n'+(p.code?ascii(p.code)+'\n':'')+'\n\n';
+  const bytes=new TextEncoder().encode('\x1B\x40\x1B\x61\x01'+one.repeat(n));let bin='';bytes.forEach(b=>bin+=String.fromCharCode(b));
+  location.href='intent:base64,'+btoa(bin)+'#Intent;scheme=rawbt;package=ru.a402d.rawbtprinter;end;';}
+
 function fullReport(){const t=effToday();const from=period==='day'?t:period==='week'?addDays(t,-6):t.slice(0,8)+'01';const inP=d=>d.slice(0,10)>=from;
   const pl=period==='day'?'Aujourd\'hui ('+fdate(t)+')':period==='week'?'7 derniers jours ('+fdate(from)+' – '+fdate(t)+')':'Mois en cours ('+fdate(from)+' – '+fdate(t)+')';
   const sales=S.sales.filter(x=>inP(x.date)),pays=S.payments.filter(x=>inP(x.date)),exps=S.expenses.filter(x=>inP(x.date));
@@ -961,6 +1030,7 @@ function showCloture(){CLC='';const txt=clotureText();
   '<div class="receipt" id="ccTxt" style="margin-top:10px">'+esc(txt)+'</div><div class="stack" style="margin-top:12px">'+
   '<a class="btn" id="ccWa" target="_blank" rel="noopener" href="'+waLink(S.shop.phone,txt)+'">Envoyer sur mon WhatsApp</a>'+
   '<div class="grid2"><button class="btn line" data-act="ccPrint">🖨 Imprimer / PDF</button><button class="btn line" data-act="ccCopy">Copier</button></div>'+
+  '<button class="btn line" data-act="ccTk">🧾 Ticket 58 mm (caisse)</button>'+
   (navigator.bluetooth?'<button class="btn line" data-act="ccBt">Imprimante Bluetooth (Android)</button>':'')+
   '<div class="small">« Imprimer / PDF » prépare un fichier PDF que vous pouvez envoyer sur WhatsApp ou enregistrer.</div></div>');}
 function updCloture(){const txt=clotureText();const e=$('ccTxt');if(e)e.textContent=txt;const a=$('ccWa');if(a)a.href=waLink(S.shop.phone,txt);}
@@ -1017,7 +1087,7 @@ document.addEventListener('click',e=>{
   closeBg:()=>{if(e.target===el){if(RS&&RS.active)endRestock();else closeSheet();}},close:()=>{if(RS&&RS.active)endRestock();else closeSheet();},
   restock:startRestock,
   fitStock:()=>{draft.lines.forEach(l=>{const pp=l.pid&&prod(l.pid);if(pp&&l.qty>pp.qty)l.qty=Math.max(0,q2(pp.qty));});draft.lines=draft.lines.filter(l=>l.qty>0);closeSheet();render();toast('Quantités corrigées : vérifiez et encaissez');},
-  print:()=>printText(el.dataset.txt),pdfShare,pdfOpen,pdfPrint,imgShare,btPrint:()=>btPrint(el.dataset.txt),cloture:showCloture,ccPrint:()=>printText(clotureText()),fullRep:()=>printHTML(fullReport()),ccCopy:()=>copyText(plain(clotureText())),ccBt:()=>btPrint(clotureText()),
+  print:()=>printText(el.dataset.txt),pdfShare,pdfOpen,pdfPrint,imgShare,btPrint:()=>btPrint(el.dataset.txt),cloture:showCloture,ccPrint:()=>printText(clotureText()),tk58:()=>ticket58(el.dataset.txt),lblOpen:()=>labelOpen(el.dataset.id),lblPrint:labelPrint,lblRaw:labelRaw,payQrDel:payQrDel,ccTk:()=>ticket58(clotureText()),tkPrint:tkPrint,tkRaw:tkRaw,fullRep:()=>printHTML(fullReport()),ccCopy:()=>copyText(plain(clotureText())),ccBt:()=>btPrint(clotureText()),
   buyMode:()=>{const c=el.dataset.m==='c';$('buyP').hidden=c;$('buyC').hidden=!c;document.querySelectorAll('[data-act=buyMode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.m===el.dataset.m)));updGain();},
   torch:async()=>{if(!TORCH)return;try{TORCH.on=!TORCH.on;await TORCH.tf.apply(TORCH.on);el.textContent=TORCH.on?'🔦 Éteindre':'🔦 Lampe';}catch(e){toast('Lampe indisponible');}},toggleAll:()=>{readDraft();draft.showAll=!draft.showAll;render();},addAmt:()=>{readDraft();const v=num(el.dataset.v);const ex=draft.lines.find(l=>!l.pid&&l.name==='Divers'&&l.price===v);if(ex)ex.qty=q2(ex.qty+1);else draft.lines.push({pid:null,name:'Divers',unit:'pièce',qty:1,price:v});render();toast('+ '+F(v));},prImgDel:()=>{PIMG='';updImgBox();},rsEnd:endRestock,
   rsAdd:()=>{const i=$('rsN');if(i)i.value=String(q2(num(i.value)+num(el.dataset.n)));},
