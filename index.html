@@ -181,6 +181,29 @@ html.big body{zoom:1.15}
 .back{background:none;border:0;color:var(--accent);font-weight:700;padding:8px 0;cursor:pointer;font-size:16px;margin-top:14px}
 @media (max-width:360px){.grid3{grid-template-columns:1fr 1fr}}
 @media (prefers-reduced-motion:no-preference){.sheet{animation:up .18s ease-out}@keyframes up{from{transform:translateY(30px);opacity:.6}}}
+
+/* ===== Mode caisse (écran de vente au choix, dans Réglages) ===== */
+.cx{display:grid;gap:10px;grid-template-areas:"tk" "pad" "pr" "pay"}
+.cx-tk{grid-area:tk}.cx-pad{grid-area:pad}.cx-pr{grid-area:pr}.cx-pay{grid-area:pay}
+@media (min-width:760px){.cx{grid-template-columns:1fr 1fr;grid-template-areas:"tk pad" "pay pr";align-items:start}}
+.cx-screen{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 12px;border:1px solid var(--line);background:var(--card);border-radius:12px;font-family:var(--display);font-weight:800;font-size:28px;font-variant-numeric:tabular-nums}
+.cx-screen span{font-family:inherit;font-weight:500;font-size:13px;color:var(--muted);min-width:0}
+.cx-keys{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+.cx-k{border:0;border-radius:10px;min-height:54px;background:#F7D93B;color:#1C1A08;font-family:var(--display);font-weight:800;font-size:26px;cursor:pointer}
+.cx-k.op{background:#3AA6B9;color:#fff;font-size:17px}
+.cx-k.c{background:#8E4A6B;color:#fff;font-size:20px}
+.cx-k:active,.cx-p:active,.cx-m:active{transform:scale(.97)}
+.cx-favs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.cx-p{position:relative;border:0;border-radius:10px;min-height:68px;padding:8px 6px;color:#fff;font-weight:700;font-size:14px;line-height:1.15;text-transform:uppercase;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-width:0;overflow-wrap:anywhere}
+.cx-p em{font-style:normal;font-weight:600;font-size:12px;text-transform:none;opacity:.95}
+.cx-p .st{position:absolute;top:3px;right:5px;font-size:10px;background:rgba(0,0,0,.3);padding:1px 6px;border-radius:99px;text-transform:none}
+.cx-p.fini{filter:grayscale(1);opacity:.5}
+.cx-pays{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.cx-m{border:3px solid transparent;border-radius:10px;min-height:54px;color:#fff;font-weight:800;font-size:13px;line-height:1.1;cursor:pointer;padding:4px 2px}
+.cx-m[aria-pressed="true"]{border-color:var(--ink)}
+.cx-total{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding-top:10px}
+.cx-total b{font-family:var(--display);font-weight:800;font-size:38px;font-variant-numeric:tabular-nums}
+.cx-tools{display:grid;grid-template-columns:1fr 1fr;gap:6px}
 </style>
 
 <div id="app"></div>
@@ -579,6 +602,7 @@ function lineHTML(l,i){return '<div class="li"><div class="li-name">'+esc(l.name
   '<div class="li-ctrl"><div class="step"><button data-act="qm" data-i="'+i+'" aria-label="Moins">−</button><input class="li-qty" data-i="'+i+'" inputmode="decimal" value="'+q2(l.qty)+'" aria-label="Quantité"><button data-act="qp" data-i="'+i+'" aria-label="Plus">+</button></div>'+
   '<input class="li-price" data-i="'+i+'" inputmode="numeric" value="'+l.price+'" aria-label="Prix unitaire"><span class="li-amt" id="la'+i+'">'+F(l.qty*l.price)+'</span></div></div>';}
 function vSell(){if(!canWrite())return '<h2>Nouvelle vente</h2><div class="card empty">L\'abonnement est terminé. Payez l\'abonnement (Plus › Réglages) pour vendre.</div>';
+  if(S.sellMode==='caisse')return vCaisse();
   if(!draft)draft=newDraft();const d=draft;const total=d.lines.reduce((a,l)=>a+l.qty*l.price,0);
   const favs=S.products.filter(p=>p.fav);
   return '<h2>'+(d.fromQuote?'Vente du devis':'Nouvelle vente')+'</h2>'+'<h3 style="margin-top:4px">Vente rapide</h3><div class="quick" style="margin-bottom:12px">'+favs.map(p=>'<button class="qb" data-act="addProd" data-id="'+p.id+'">'+thumb(p)+esc(p.name)+'<span>'+F(priceOf(p))+'</span></button>').join('')+
@@ -693,6 +717,7 @@ function vSet(){const L=licState();const msg='Bonjour '+SUPPORT_NAME+', je veux 
   '<a class="btn ghost" target="_blank" rel="noopener" href="'+waLink(SUPPORT_WA,msg)+'">Contacter '+SUPPORT_NAME+' sur WhatsApp</a>'+
   '<button class="btn" data-act="chkSub">Vérifier mon abonnement</button><div class="small">Après le paiement, appuyez sur « Vérifier mon abonnement ».</div></div>'+
   paperCard()+'<h3>Ma boutique</h3><form id="fShop" class="card stack"><label class="f">Nom<input id="sName" value="'+esc(S.shop.name)+'"></label><label class="f">Propriétaire<input id="sOwner" value="'+esc(S.shop.owner)+'"></label><div class="grid2"><label class="f">Téléphone<input id="sPhone" value="'+esc(S.shop.phone)+'"></label><label class="f">Adresse<input id="sAddr" value="'+esc(S.shop.address)+'"></label></div><label class="f">Message en bas des factures<input id="sFoot" value="'+esc(S.shop.footer||'')+'" placeholder="Merci pour votre confiance !"></label><button class="btn line" type="submit">Enregistrer</button></form>'+payQrCard()+
+  '<h3>Écran de vente</h3><div class="card stack"><div class="seg"><button class="segb" type="button" data-ck="setMode" data-m="normal" aria-pressed="'+(S.sellMode!=='caisse')+'">Écran normal</button><button class="segb" type="button" data-ck="setMode" data-m="caisse" aria-pressed="'+(S.sellMode==='caisse')+'">Mode caisse</button></div><div class="small">Mode caisse : pavé de chiffres et gros boutons de couleur, comme une caisse de magasin. Les gros boutons sont les articles en favori. Vous pouvez changer quand vous voulez.</div></div>'+
   '<h3>Affichage</h3><div class="card stack"><label class="chk"><input type="checkbox" data-big'+(document.documentElement.classList.contains('big')?' checked':'')+'>Lettres plus grandes</label><div class="small">Pour ceux qui voient mal : tout devient plus grand sur ce téléphone.</div></div>'+
   '<h3>Voix</h3><div class="card stack"><label class="chk"><input type="checkbox" data-voice'+(voiceOn()?' checked':'')+'>Annoncer le total à voix haute</label><div class="small">Le téléphone dit le total, l\'argent reçu et la monnaie à rendre (en français).</div><button class="btn line" data-act="testVoice">🔊 Tester la voix</button></div>'+
   '<h3>Code patron</h3><div class="card stack"><div class="small">Si un vendeur utilise le téléphone : avec un code, il peut vendre et encaisser, mais pas voir le bénéfice, changer les prix, le stock ou les réglages.</div><label class="f">'+(S.pin?'Nouveau code (vide = enlever le code)':'Code à 4 chiffres')+'<input id="newPin" type="password" inputmode="numeric" maxlength="6"></label><button class="btn line" data-act="setPin">'+(S.pin?'Changer / enlever le code':'Mettre le code')+'</button></div>'+
@@ -1214,6 +1239,79 @@ document.addEventListener('submit',e=>{e.preventDefault();
   if(e.target.id==='fAuth'){doAuth();return;}
   if(e.target.id==='fOn'){if(!val('onName').trim())return toast('Écrivez le nom de la boutique');start({name:val('onName').trim(),owner:val('onOwner').trim(),phone:val('onPhone').trim(),address:val('onAddr').trim(),footer:''},false);}
   if(e.target.id==='fShop'){Object.assign(S.shop,{name:val('sName').trim()||S.shop.name,owner:val('sOwner').trim(),phone:val('sPhone').trim(),address:val('sAddr').trim(),footer:val('sFoot').trim()});save();render();toast('Boutique enregistrée');}});
+// ===== Mode caisse : 2e écran de vente, au choix dans Plus › Réglages (l'écran normal ne change pas) =====
+let CX={buf:'',qty:0};
+const CX_COL=['#2E9E48','#1F3FBF','#8E44D9','#D35400','#B7950B','#C0392B','#16A085','#7F8C8D'];
+function cxCol(p){let h=0;for(const ch of String(p.id))h=(h*31+ch.charCodeAt(0))>>>0;return CX_COL[h%CX_COL.length];}
+function cxHint(){const d=draft;if(CX.qty)return 'Quantité '+q2(CX.qty)+' × … touchez un article';if(d&&d.mode!=='Crédit'&&String(d.paid).trim()!=='')return 'Le client donne '+F(num(d.paid));return 'Tapez un nombre';}
+function vCaisse(){if(!draft)draft=newDraft();const d=draft;const c=calc();const favs=S.products.filter(p=>p.fav);
+  const inC=id=>d.lines.filter(l=>l.pid===id).reduce((a,l)=>a+l.qty,0);
+  const keys=['7','8','9','C','4','5','6','X','1','2','3','R','0','00',',','L'],kl={X:'× Qté',R:'Reçu',L:'Prix libre'};
+  const pays=[['Espèces','#2E8B57'],['Wave','#1DA1F2'],['Orange Money','#FF7900'],['Crédit','#8E4A6B']];
+  return '<h2>'+(d.fromQuote?'Vente du devis':'Nouvelle vente')+'</h2><div class="small" style="margin:-6px 0 10px">Mode caisse · pour l\'écran normal : Plus › Réglages</div><div class="cx">'+
+  '<div class="cx-tk card">'+(d.lines.length?d.lines.map(lineHTML).join(''):'<div class="empty">Touchez un article, scannez ou tapez un prix.</div>')+
+    '<div class="total cx-total"><span>TOTAL</span><b id="saleTotal">'+F(c.total)+'</b></div></div>'+
+  '<div class="cx-pad"><div class="cx-screen"><span id="cxHint">'+esc(cxHint())+'</span><b id="cxBuf" data-notr>'+esc(CX.buf||'0')+'</b></div>'+
+    '<div class="cx-keys">'+keys.map(k=>'<button type="button" class="cx-k'+(k==='C'?' c':/[XRL]/.test(k)?' op':'')+'" data-ck="key" data-k="'+k+'">'+(kl[k]||k)+'</button>').join('')+'</div></div>'+
+  '<div class="cx-pr stack"><div class="cx-tools"><button class="btn" data-act="scanSell">'+svg('scan')+'Scanner</button><button class="btn line" data-act="toggleAll">'+svg('stock')+(d.showAll?'Fermer':'Tout le stock')+'</button></div>'+
+    '<div class="seg"><button class="segb" data-act="gros" data-v="0" aria-pressed="'+!d.gros+'">Détail</button><button class="segb" data-act="gros" data-v="1" aria-pressed="'+d.gros+'">Gros</button></div>'+
+    '<input id="pSearch" type="search" placeholder="Chercher un article" value="'+esc(d.q)+'" autocomplete="off"><div class="results'+(d.showAll?' all':'')+'" id="pResults"></div>'+
+    (favs.length?'<div class="cx-favs">'+favs.map(p=>{const left=q2(p.qty-inC(p.id));return '<button type="button" class="cx-p'+(left<=0?' fini':'')+'" style="background:'+cxCol(p)+'" data-ck="prod" data-id="'+p.id+'"><span class="st">'+(left<=0?'Fini':left)+'</span>'+esc(p.name)+'<em>'+F(priceOf(p))+'</em></button>';}).join('')+'</div>'
+      :'<div class="card small">Pas encore de gros boutons. Dans Stock, ouvrez un article › Plus de détails › cochez « Mettre un bouton dans Vente rapide ».</div>')+'</div>'+
+  '<div class="cx-pay card stack"><div class="cx-pays">'+pays.map(([m,col])=>'<button type="button" class="cx-m" style="background:'+col+'" data-act="mode" data-m="'+m+'" aria-pressed="'+(d.mode===m)+'">'+m+'</button>').join('')+'</div>'+
+    '<div id="changeBox">'+changeHTML()+'</div>'+
+    '<button class="btn enc" id="encBtn" data-act="saveSale"'+(d.lines.length?'':' disabled')+'>'+encLabel()+'</button>'+
+    '<details class="more cli" id="cliBox"'+(d.showCli||d.mode==='Crédit'||d.client||d.fromQuote?' open':'')+'><summary>Crédit ou client connu</summary><div class="stack" style="margin-top:12px">'+
+    '<label class="f">Nom du client<input id="dClient" list="clientsDL" value="'+esc(d.client)+'" placeholder="Obligatoire si crédit"></label><label class="f">Téléphone<input id="dPhone" inputmode="tel" value="'+esc(d.phone)+'" placeholder="77…"></label>'+
+    '<datalist id="clientsDL">'+S.clients.map(x=>'<option value="'+esc(x.name)+'">').join('')+'</datalist>'+
+    '<label class="f">Il paiera le<input id="dDue" type="date" value="'+esc(d.due)+'"></label>'+
+    '<button class="btn line" data-act="saveQuote"'+(d.lines.length?'':' disabled')+'>Faire un devis (proforma)</button></div></details></div></div>'+
+  (d.lines.length||d.fromQuote?'<button class="back" data-act="clearDraft">Vider le panier</button>':'');}
+function cxAdd(p,q){if(q===1)return addProdToDraft(p);
+  const ex=draft.lines.find(l=>l.pid===p.id);const want=q2((ex?ex.qty:0)+q);
+  if(want>p.qty){toast(p.qty>0?'Il reste seulement '+q2(p.qty)+' '+p.unit+' de '+p.name:'Stock fini : '+p.name+'. Ajoutez du stock (+ Stock)');try{navigator.vibrate&&navigator.vibrate([80,60,80])}catch(e){}return false;}
+  if(ex)ex.qty=want;else draft.lines.push({pid:p.id,name:p.name,unit:p.unit,qty:q2(q),price:priceOf(p)});
+  if(expState(p)==='out')toast('Attention : '+p.name+' est périmé');return true;}
+document.addEventListener('click',e=>{const el=e.target.closest('[data-ck]');if(!el||!S)return;const a=el.dataset.ck;
+  if(a==='setMode'){S.sellMode=el.dataset.m==='caisse'?'caisse':'';save();render();toast(S.sellMode?'Mode caisse activé':'Écran normal activé');return;}
+  if(!draft)draft=newDraft();readDraft();
+  if(a==='prod'){const p=prod(el.dataset.id);if(!p)return;if(cxAdd(p,CX.qty||1))CX.qty=0;render();return;}
+  if(a!=='key')return;const k=el.dataset.k;
+  if(/^\d+$/.test(k)){if(CX.buf.replace(',','').length<9)CX.buf=(CX.buf+k).replace(/^0+(?=\d)/,'');}
+  else if(k===','){if(!CX.buf.includes(','))CX.buf=(CX.buf||'0')+',';}
+  else if(k==='C'){if(CX.buf)CX.buf='';else{CX.qty=0;if(draft.mode!=='Crédit')draft.paid='';render();return;}}
+  else if(k==='X'){if(num(CX.buf)>0){CX.qty=num(CX.buf);CX.buf='';}else return toast('Tapez d\'abord la quantité (ex. 3 ou 1,5)');}
+  else if(k==='R'){if(num(CX.buf)>0){draft.paid=String(Math.round(num(CX.buf)));if(draft.mode==='Crédit')draft.mode='Espèces';CX.buf='';render();return;}return toast('Tapez l\'argent que le client donne');}
+  else if(k==='L'){const v=Math.round(num(CX.buf));if(v>0){const q=CX.qty||1;draft.lines.push({pid:null,name:'Divers',unit:'pièce',qty:q2(q),price:v});CX.buf='';CX.qty=0;render();toast('+ '+F(v*q));return;}return toast('Tapez le prix, puis Prix libre');}
+  const b=$('cxBuf');if(b)b.textContent=CX.buf||'0';const h=$('cxHint');if(h)h.textContent=cxHint();});
+// Lecteur de code-barres (POS Android, USB, Bluetooth) : il tape le code puis Entrée
+let cxKb='',cxKt=0;
+document.addEventListener('keydown',e=>{if(!S||tab!=='sell'||S.sellMode!=='caisse')return;const t=e.target;if(t&&/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))return;if($('sheetRoot').innerHTML.trim())return;
+  const n=Date.now();if(n-cxKt>150)cxKb='';cxKt=n;
+  if(e.key==='Enter'){const c=cxKb.trim();cxKb='';if(c.length<4)return;e.preventDefault();if(!w())return;if(!draft)draft=newDraft();readDraft();const p=byCode(c);
+    if(p){try{beep()}catch(x){}const ok=addProdToDraft(p);render();if(ok)toast('+1 '+p.name);}
+    else openSheet('Article inconnu','<div class="card stack"><div>Le code <b>'+esc(c)+'</b> n\'est pas dans votre stock.</div><button class="btn" data-act="createFromCode" data-c="'+esc(c)+'">Créer l\'article</button><button class="btn line" data-act="close">Annuler</button></div>');}
+  else if(e.key.length===1)cxKb+=e.key;});
+Object.assign(WO,{"Écran de vente":"Ekraanu jaay","Écran normal":"Ekraan normal","Mode caisse":"Mode kees","× Qté":"× Lim","Reçu":"Li mu jox","Prix libre":"Bindal njëg","Tapez un nombre":"Bindal benn siifar",
+  "Mode caisse activé":"Mode kees dox na","Écran normal activé":"Ekraan normal dox na",
+  "Mode caisse · pour l'écran normal : Plus › Réglages":"Mode kees · ngir ekraan normal : Plus › Réglages",
+  "Touchez un article, scannez ou tapez un prix.":"Bësal benn marsandiis, scanner ko walla bindal njëg.",
+  "Tapez d'abord la quantité (ex. 3 ou 1,5)":"Bindal lim bi jëkk (ex. 3 walla 1,5)",
+  "Tapez l'argent que le client donne":"Bindal xaalis bi kiliyaan bi jox","Tapez le prix, puis Prix libre":"Bindal njëg bi, ba noppi bësal « Bindal njëg »",
+  "Mode caisse : pavé de chiffres et gros boutons de couleur, comme une caisse de magasin. Les gros boutons sont les articles en favori. Vous pouvez changer quand vous voulez.":"Mode kees : siifar yu mag ak butoŋ yu mag yu am kulëer, niki kees bu magasin. Butoŋ yi, marsandiis yi nga tànn ci « Vente rapide » lañu. Mën nga ko soppi saa su la neexee.",
+  "Pas encore de gros boutons. Dans Stock, ouvrez un article › Plus de détails › cochez « Mettre un bouton dans Vente rapide ».":"Amul butoŋ ba leegi. Ci Stock, ubbil benn marsandiis › Plus de détails › tànnal « Mettre un bouton dans Vente rapide »."});
+WO_RX.push([/^Quantité (.+) × … touchez un article$/,"Lim $1 × … bësal benn marsandiis"],[/^Le client donne (.+)$/,"Kiliyaan bi jox na $1"]);
+// Avis « Nouveau : Mode caisse » sur Accueil : montré UNE seule fois par boutique, puis plus jamais
+const _vHomeCx=vHome;
+vHome=function(){const h=_vHomeCx();
+  if(!S||S.cxSeen||S.sellMode==='caisse'||!canWrite())return h;
+  setTimeout(()=>{if(S&&!S.cxSeen){S.cxSeen=1;save();}},0);
+  return '<div class="banner" id="cxNews" style="background:var(--accent-soft);color:var(--accent)"><b>Nouveau : Mode caisse</b><span>Une 2e façon de vendre : pavé de chiffres et gros boutons de couleur, comme une caisse de magasin. Votre écran actuel ne change pas.</span><div class="grid2"><button class="btn" data-ck="cxTry">Essayer</button><button class="btn line" data-ck="cxNo">Non merci</button></div><span class="small" style="color:inherit">Vous pouvez choisir plus tard dans Plus › Réglages.</span></div>'+h;};
+document.addEventListener('click',e=>{const el=e.target.closest('[data-ck="cxTry"],[data-ck="cxNo"]');if(!el||!S)return;e.stopImmediatePropagation();
+  S.cxSeen=1;if(el.dataset.ck==='cxTry'){S.sellMode='caisse';save();go('sell');toast('Mode caisse activé');}else{save();const b=$('cxNews');if(b)b.remove();}},true);
+Object.assign(WO,{"Nouveau : Mode caisse":"Lu bees : Mode kees","Essayer":"Jéem","Non merci":"Déedéet, jërëjëf",
+  "Une 2e façon de vendre : pavé de chiffres et gros boutons de couleur, comme une caisse de magasin. Votre écran actuel ne change pas.":"Beneen anam bu jaay : siifar yu mag ak butoŋ yu am kulëer, niki kees bu magasin. Sa ekraan bi nga am leegi du soppiku.",
+  "Vous pouvez choisir plus tard dans Plus › Réglages.":"Mën nga ko tànn ci kanam ci Plus › Réglages."});
 render();boot();
 </script>
 
