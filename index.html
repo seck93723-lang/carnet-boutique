@@ -189,8 +189,8 @@ html.cx-lock,html.cx-lock body{overflow:hidden;overscroll-behavior:none}
 .cx-tk{order:1;flex:1 1 auto;min-height:92px;display:flex;flex-direction:column;padding:0;overflow:hidden}
 .cx-sw{order:2}.cx-panel{order:3}.cx-pays{order:4}.cx-enc{order:5}
 .cx-tkh{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 8px 5px 10px;border-bottom:1px solid var(--line);font-size:13px;color:var(--muted);min-height:36px}
-.cx-tkh .q{color:var(--accent);font-weight:700}
-.cx-chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:4px 10px;font-size:13px;font-weight:600;max-width:55%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
+.cx-tkh>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.cx-tkh .q{color:var(--accent);font-weight:700}
+.cx-chip{flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:99px;padding:4px 10px;font-size:13px;font-weight:600;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}
 .cx-lines{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;min-height:0}
 .cx-l{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:center;gap:6px;padding:5px 8px 5px 10px;border-bottom:1px dashed var(--line)}
 .cx-l .n{min-width:0;font-weight:600;font-size:14px;line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -234,7 +234,48 @@ html.cx-lock,html.cx-lock body{overflow:hidden;overscroll-behavior:none}
   .cx-left,.cx-right{display:flex;flex-direction:column;gap:6px;min-height:0}
   .cx-panel{flex:1 1 auto}
 }
-.cx-panel .res{padding:7px 10px;min-height:0}.cx-panel .res .s{font-size:12px}
+.cx-panel .results{display:flex;flex-direction:column;gap:6px}.cx-panel .res{flex:0 0 auto;min-height:52px;padding:7px 10px}.cx-panel .res .s{font-size:12px}
+/* Bouton client : jamais coupé */
+.cx-chip{max-width:none;overflow:visible;text-overflow:clip}
+/* Tablette, POS, ordinateur : seule la caisse prend toute la largeur */
+html.cx-lock .wrap{max-width:1200px;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:700px) and (min-height:521px){
+  .cx-left{flex:0 0 46%}
+  .cx{grid-template-columns:minmax(0,46fr) minmax(0,54fr)}
+  .cx-favs{grid-template-columns:repeat(auto-fill,minmax(118px,1fr));grid-auto-rows:84px;gap:8px}
+  .cx-p{font-size:15px}.cx-p em{font-size:14px}
+  .cx-k{font-size:32px}.cx-k.op{font-size:19px}.cx-k.c{font-size:26px}
+  .cx-keys{gap:8px}
+  .cx-screen{flex-basis:46px;font-size:28px}
+  .cx-m{min-height:58px;font-size:15px}
+  .cx-enc{min-height:66px;font-size:24px!important}
+  .cx-l{padding:8px 10px}.cx-l .n{font-size:16px}.cx-l .a{font-size:16px}
+  .cx-st button{width:38px;height:38px}.cx-x{width:40px;height:40px}
+  .cx-foot .t{font-size:34px}
+  .cx-sw .segb{min-height:46px;font-size:15px}
+}
+/* Téléphone tourné (horizontal) : 3 colonnes, barres plus fines */
+@media (orientation:landscape) and (max-height:520px){
+  html.cx-lock header.top{padding-block:4px 2px}
+  html.cx-lock .tabs button{flex-direction:row;justify-content:center;gap:6px;padding:5px 2px;font-size:12px}
+  html.cx-lock .tabs button svg{width:18px;height:18px}
+  .cx{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.35fr) minmax(0,.7fr);grid-template-rows:minmax(0,1fr) auto;gap:6px;margin-top:2px}
+  .cx-left{display:contents}
+  .cx-tk{grid-column:1;grid-row:1/3;min-height:0}
+  .cx-right{grid-column:2;grid-row:1/3;display:flex;flex-direction:column;gap:5px;min-height:0}
+  .cx-pays{grid-column:3;grid-row:1;grid-template-columns:1fr;align-content:start}
+  .cx-enc{grid-column:3;grid-row:2;min-height:44px;font-size:16px!important;padding:6px!important}
+  .cx-m{min-height:34px;font-size:12px}
+  .cx-panel{flex:1 1 auto}
+  .cx-sw .segb{min-height:32px;font-size:12px}
+  .cx-screen{flex-basis:28px;font-size:18px}
+  .cx-keys{gap:4px}.cx-k{font-size:18px}.cx-k.op{font-size:12px}.cx-k.c{font-size:16px}
+  .cx-favs{grid-template-columns:repeat(4,1fr);grid-auto-rows:50px}
+  .cx-p{font-size:11px}.cx-p em{font-size:11px}
+  .cx-tkh{min-height:30px;padding-block:3px}
+  .cx-foot{min-height:34px}.cx-foot .t{font-size:20px}
+  .cx-l{padding-block:3px}.cx-st button{width:26px;height:26px}.cx-x{width:28px;height:28px}
+}
 </style>
 
 <div id="app"></div>
@@ -1299,7 +1340,7 @@ function vCaisse(){if(!draft)draft=newDraft();const d=draft;const c=calc();const
   const pays=[['Espèces','#2E8B57'],['Wave','#1DA1F2'],['Orange Money','#FF7900']];
   return '<div class="cx" id="cxRoot"><div class="cx-left">'+
   '<div class="cx-tk card"><div class="cx-tkh">'+(CX.qty?'<span class="q">'+q2(CX.qty)+' × … touchez un article</span>':'<span>Panier'+(nb?' · '+q2(nb)+' article(s)':'')+'</span>')+
-    '<span style="display:flex;gap:6px;min-width:0"><button class="cx-chip" data-ck="client">'+(d.client?'👤 '+esc(d.client):'+ Client')+'</button>'+(d.lines.length?'<button class="cx-chip" data-act="clearDraft">Vider</button>':'')+'</span></div>'+
+    '<span style="display:flex;gap:6px;flex:0 0 auto"><button class="cx-chip" data-ck="client">'+(d.client?'👤 '+esc(d.client.length>14?d.client.slice(0,13)+'…':d.client):'+ Client')+'</button>'+(d.lines.length?'<button class="cx-chip" data-act="clearDraft">Vider</button>':'')+'</span></div>'+
     '<div class="cx-lines" id="cxLines">'+(lines||'<div class="cx-empty">Touchez un article, scannez ou tapez un prix.</div>')+'</div>'+
     '<div class="cx-foot"><div style="display:flex;align-items:baseline;gap:8px"><span class="small">TOTAL</span><span class="t" id="saleTotal">'+F(c.total)+'</span></div><div class="cx-chg" id="cxChg">'+cxChg()+'</div></div></div>'+
   '<div class="cx-pays">'+pays.map(([m,col])=>'<button type="button" class="cx-m" style="background:'+col+'" data-act="mode" data-m="'+m+'" aria-pressed="'+(d.mode===m)+'">'+m+'</button>').join('')+
@@ -1328,7 +1369,7 @@ function cxFit(keep){const root=$('cxRoot');const on=!!root;document.documentEle
   if(!on){CX.n=-1;return;}
   window.scrollTo(0,0);const nav=document.querySelector('nav.tabs');const nh=nav?nav.getBoundingClientRect().height:0;
   const h=Math.floor(window.innerHeight-root.getBoundingClientRect().top-nh-6);
-  if(h<360){document.documentElement.classList.remove('cx-lock');root.style.height='';}else root.style.height=h+'px';
+  if(h<200){document.documentElement.classList.remove('cx-lock');root.style.height='';}else root.style.height=h+'px';
   keep=keep||{};const ln=$('cxLines'),fv=document.querySelector('.cx-favs'),rs=$('pResults');
   const n=draft?draft.lines.length:0;
   if(ln){if(n>CX.n&&CX.n>=0)ln.scrollTop=ln.scrollHeight;else ln.scrollTop=keep.l||0;}
