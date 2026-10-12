@@ -509,12 +509,12 @@ async function afterLogin(){const old=load();S=old&&old.uid&&old.uid!==USER.id?n
 async function boot(){const t0=Date.now();while(!window.supabase&&Date.now()-t0<7000)await new Promise(r=>setTimeout(r,150));
   if(!window.supabase){BOOTING=false;S=load();render();return;}
   SB=window.supabase.createClient(SUPA_URL,SUPA_KEY,{auth:{persistSession:true,autoRefreshToken:true}});
-  try{const {data}=await SB.auth.getSession();USER=data&&data.session?data.session.user:null;}catch(e){USER=null;}
+  try{const {data}=await SB.auth.getSession();USER=data&&data.session?data.session.user:null;}catch(e){USER=null;}if(!USER){try{const o=JSON.parse(localStorage.getItem('sb-cmwsypqsehhuzkgylhrx-auth-token')||'null');if(o&&o.user&&o.user.id)USER=o.user;}catch(e){}}
   BOOTING=false;if(!USER){S=null;render();return;}
   S=load();if(S&&S.uid&&S.uid!==USER.id)S=null;render();
   let ch=false;try{const r=await cloudCheck();if(r==='down')ch=true;}catch(e){setSync('err');}try{if(await fetchLic())ch=true;}catch(e){}if(ch)render();
   document.addEventListener('visibilitychange',async()=>{if(document.visibilityState!=='visible'||!USER||isDirty())return;let ch=false;try{if(await cloudCheck()==='down'){ch=true;toast('Données mises à jour');}}catch(e){}try{if(await fetchLic())ch=true;}catch(e){}if(ch)render();});
-  window.addEventListener('online',()=>{if(isDirty())push();});}
+  window.addEventListener('online',async()=>{try{await SB.auth.getSession();}catch(e){}if(isDirty())push();});}
 function vLogin(){const su=AUTH_MODE==='signup';
   return '<div class="wrap"><div class="hero-on"><div class="seg" style="max-width:260px;margin-bottom:22px"><button class="segb" type="button" data-lang="fr" aria-pressed="'+(LANG!=='wo')+'">Français</button><button class="segb" type="button" data-lang="wo" aria-pressed="'+(LANG==='wo')+'">Wolof</button></div><h1>Carnet Boutique</h1><p>Connectez-vous : vos ventes, crédits et stock sont sauvegardés en ligne, même si vous changez de téléphone.</p></div>'+
   '<form id="fAuth" class="card stack big-form"><div class="seg"><button class="segb" type="button" data-act="authMode" data-m="login" aria-pressed="'+!su+'">Se connecter</button><button class="segb" type="button" data-act="authMode" data-m="signup" aria-pressed="'+su+'">Créer un compte</button></div>'+
@@ -1425,6 +1425,7 @@ Object.assign(WO,{"Nouveau : Mode caisse":"Lu bees : Mode kees","Essayer":"Jéem
   "Une 2e façon de vendre : pavé de chiffres et gros boutons de couleur, comme une caisse de magasin. Votre écran actuel ne change pas.":"Beneen anam bu jaay : siifar yu mag ak butoŋ yu am kulëer, niki kees bu magasin. Sa ekraan bi nga am leegi du soppiku.",
   "Vous pouvez choisir plus tard dans Plus › Réglages.":"Mën nga ko tànn ci kanam ci Plus › Réglages."});
 render();boot();
+if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
 </script>
 
 </body></html>
